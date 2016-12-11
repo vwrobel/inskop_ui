@@ -1,0 +1,7 @@
+node_modules
+build
+
+Dockerfile
+docker-compose.yml
+.env
+dev.sqlite3

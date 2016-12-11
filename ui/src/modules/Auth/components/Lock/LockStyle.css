@@ -1,0 +1,62 @@
+body .auth0-lock.auth0-lock .auth0-lock-header{
+    display: none;
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-header-avatar{
+    display: none;
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-cred-pane {
+    background: none;
+}
+
+body .auth0-lock-social-button-icon {
+    background-color: #666666 !important;
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-submit {
+    //background-color: #ff4081 !important;
+    background-color: #182124 !important;
+}
+
+body .auth0-lock.auth0-lock{
+    font-family: Asap, sans-serif;
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-input-wrap .auth0-lock-input{
+    font-size: 13pt;
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-widget{
+    width: 400px;
+    height: 400px;
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-content{
+    height: 330px;
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-tabs li a{
+    font-size: 13pt;
+}
+
+body .auth0-lock.auth0-lock.auth0-lock-opened-in-frame .auth0-lock-badge-bottom {
+    display: none;
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-tabs li a {
+    color: #182124;
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-tabs li.auth0-lock-tabs-current {
+    background-color: #182124;
+    color: rgba(115, 158, 173);
+}
+
+body .auth0-lock.auth0-lock .auth0-lock-content {
+    padding: 30px;
+}
+
+body #Oval-302{
+    fill: #ff4081 !important;
+}

@@ -1,0 +1,26 @@
+#to dockerize
+
+docker run --env-file .env scopethis_api
+
+
+#eb_cli
+
+eb init
+eb local run --envvars SERVER_URL='http://localhost:3000',MEDIA_URL='http://localhost:3000/api/media/',AUTH0_DOMAIN='scopethis.eu.auth0.com',AUTH0_CLIENT_ID='T46FWnqLUhRQcQGpvvDP296JKtYbNTeO',AUTH0_CLIENT_SECRET='xKkjgMcEnYzq2aly6yihfBwQIifZMAhaUPM0Y_m3FAfu7mQ-e2t6_-cFIyDVpSyq'
+
+
+# local docker
+docker build -t scopethis_api ./scopethis_api
+docker run --env-file ./scopethis_api/.env scopethis_api
+docker tag scopethis_api:latest 782246339304.dkr.ecr.eu-west-1.amazonaws.com/scopethis_api:latest
+docker ps
+docker exec -t -i <container name> bash
+python manage.py migrate
+
+
+
+
+docker run --env API_ADDRESS=http://custom-env.wvmfj7wxip.eu-west-1.elasticbeanstalk.com/ scopethis_ui_nginx
+
+
+source-map-explorer build/client/assets/bundle.f4206b3f423c045f38de.js build/server/server/server.js.map

@@ -1,0 +1,24 @@
+- filters:
+  - filter:
+      name: color_select
+      param:
+        lower: [17, 15, 100]
+        upper: [50, 56, 200]
+  - filter:
+      name: mhi
+      param:
+        sigma_blur: 9
+        threshold: 5
+        kernel_size: 5
+        tau: 200
+
+- trackers:
+  - tracker:
+      name: meanshift
+      selection: Aouto
+      param:
+        lower_color_bound: [0.0, 0.0, 0.0]
+        upper_color_bound: [255.0, 255.0, 255.0]
+        color_channel: [2]
+        channel_range: [0, 255]
+        bin_nb: [16]

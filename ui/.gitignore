@@ -1,0 +1,14 @@
+node_modules/
+build/
+npm-debug*.log
+.DS_Store
+.idea
+dev.sqlite3
+.env
+/api/venv/
+/api/db.sqlite3
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
