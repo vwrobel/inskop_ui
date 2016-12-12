@@ -58,6 +58,8 @@ class Select extends Component {
     const t = Math.round(currentTime * scene.frameCount);
     const sketchpadItem = sketchpadItems[sketchpadItems.length - 1];
     sketchpadItem.strokeWidth = 3;
+    sketchpadItem.dash = null;
+    sketchpadItem.added = true;
     const jsonItem = JSON.stringify(sketchpadItem);
     addTag(tagName).then(() =>
       addSelection(analysis.id, selectionName, tagName).then((res) => {
@@ -90,6 +92,11 @@ class Select extends Component {
           onValidSubmit={() => {}}
           onInvalidSubmit={() => {}}
         >
+          <WindowForm
+            windowColor={windowColor}
+            dispatch={dispatch}
+            mode={mode}
+          />
           <TagForm
             dispatch={dispatch}
             tags={tags}
@@ -103,11 +110,6 @@ class Select extends Component {
             selections={selections}
             selectionInput={selectionInput}
             selectedSelection={selectedSelection}
-          />
-          <WindowForm
-            windowColor={windowColor}
-            dispatch={dispatch}
-            mode={mode}
           />
           <RaisedButton
             type='submit'

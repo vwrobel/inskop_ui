@@ -19,6 +19,7 @@ export const SKETCHPAD_DISPLAY = 'SKETCHPAD_DISPLAY';
 export const WINDOW_SET_COLOR = 'WINDOW_SET_COLOR';
 export const WINDOW_SET_TOOL = 'WINDOW_SET_TOOL';
 export const WINDOW_SET_MODE = 'WINDOW_SET_MODE';
+export const WINDOW_ERASE = 'WINDOW_ERASE';
 export const WINDOW_TRANSFORM_ITEM = 'WINDOW_TRANSFORM_ITEM';
 export const WINDOW_REMOVE_ITEM = 'WINDOW_REMOVE_ITEM';
 export const WINDOW_DRAG_ITEM = 'WINDOW_DRAG_ITEM';
@@ -75,6 +76,12 @@ export const windowDragItem = (draggedItemId) => ({
   type: WINDOW_DRAG_ITEM,
   payload: {
     draggedItemId
+  }
+});
+
+export const windowErase = () => ({
+  type: WINDOW_ERASE,
+  payload: {
   }
 });
 
@@ -187,6 +194,9 @@ export const toolBarActionSelect = (value, dispatch, scene, analysis) => {
       break;
     case 'view-analysis':
       dispatch(push(`${currentSceneUrl}/view-analysis`));
+      break;
+    case 'comment':
+      dispatch(push(`${currentSceneUrl}/comment`));
       break;
     case 'select':
       dispatch(push(`${currentSceneUrl}/select`));

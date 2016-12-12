@@ -8,7 +8,7 @@ import DotsVerticalIcon from 'mdi-react/DotsVerticalIcon';
 import { StyleSheet, css } from 'aphrodite';
 import { setUserMenuOpen, setUserMenuAnchor } from '../AppBarActions';
 
-import { scopethisLighter } from '../../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../../styles/MuiTheme';
 
 import UserMenu from './UserMenu';
 
@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
 
 const style = {
   fontSize: 'large',
-  color: scopethisLighter
+  color: inskopLighter
 };
 
 const iconStyle = {
-  fill: scopethisLighter
+  fill: inskopLighter
 };
 
 

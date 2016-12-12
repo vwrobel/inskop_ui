@@ -5,6 +5,7 @@ import navReducer from '../modules/Navigation/NavReducer';
 import authReducer from '../modules/Auth/AuthReducer';
 import sceneReducer from '../modules/Pages/Lab/Scenes/SceneReducer';
 import codeReducer from '../modules/Pages/Lab/Codes/CodeReducer';
+import userReducer from '../modules/Pages/User/UserReducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -12,6 +13,7 @@ export default combineReducers({
   navigation: navReducer,
   auth: authReducer,
   scene: sceneReducer,
-  code: codeReducer
+  code: codeReducer,
+  user: userReducer
 });
 

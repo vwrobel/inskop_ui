@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { CardMedia } from 'material-ui/Card';
 import { Link } from 'react-router';
-import { scopethisLight } from '../../../../../../../../styles/MuiTheme';
+import { inskopLight } from '../../../../../../../../styles/MuiTheme';
 import { sceneCardShowDescription } from '../../../SceneListActions';
 
 const {
@@ -10,7 +10,7 @@ const {
 
 const descriptionStyle = {
   fontSize: '11pt',
-  color: scopethisLight,
+  color: inskopLight,
   height: 202 - 8,
   padding: 20,
   boxSizing: 'border-box'

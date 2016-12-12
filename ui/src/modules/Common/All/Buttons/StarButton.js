@@ -3,12 +3,12 @@ import { StyleSheet, css } from 'aphrodite';
 import IconButton from 'material-ui/IconButton';
 import StarOutlineIcon from 'mdi-react/StarOutlineIcon';
 import StarIcon from 'mdi-react/StarIcon';
-import { scopethisPink } from '../../../../styles/MuiTheme';
+import { inskopPink } from '../../../../styles/MuiTheme';
 
 
 const styles = StyleSheet.create({
   starred: {
-    fill: scopethisPink,
+    fill: inskopPink,
     stroke: 'black',
     strokeWidth: 2,
     strokeOpacity: 0.8

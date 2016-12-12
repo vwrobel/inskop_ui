@@ -6,7 +6,7 @@ import { Layer, Stage, Group } from 'react-konva';
 import { connect } from 'react-redux';
 import { v4 } from 'uuid';
 import _ from 'underscore';
-import { sketchpadAddItem, windowDragItem, windowTransformItem } from '../../../Tools/ToolsActions';
+import { sketchpadAddItem, windowDragItem, windowTransformItem, windowErase } from '../../../Tools/ToolsActions';
 import Rectangle from './Shape/Rectangle';
 
 class Sketchpad extends Component {
@@ -22,6 +22,7 @@ class Sketchpad extends Component {
     const { mode, color, containerWidth, containerHeight, dispatch } = this.props;
     switch (mode) {
       case 'add':
+        dispatch(windowErase());
         const stage = this.refs.stage.getStage();
         const { x, y } = stage.getPointerPosition();
         const itemId = v4();
@@ -32,7 +33,10 @@ class Sketchpad extends Component {
           width: 1 / containerWidth,
           height: 1 / containerHeight,
           stroke: color,
-          strokeWidth: 2
+          strokeWidth: 2,
+          dash: [2, 1],
+          type: 'manual',
+          added: false
         };
         dispatch(sketchpadAddItem(newItemProps));
         break;
@@ -103,7 +107,8 @@ class Sketchpad extends Component {
                 x,
                 y,
                 stroke,
-                strokeWidth
+                strokeWidth,
+                dash
               } = item;
               return (
                 <Rectangle
@@ -117,6 +122,7 @@ class Sketchpad extends Component {
                   containerHeight={containerHeight}
                   stroke={stroke}
                   strokeWidth={strokeWidth}
+                  dash={dash}
                   dispatch={dispatch}
                   mode={mode}
                 />

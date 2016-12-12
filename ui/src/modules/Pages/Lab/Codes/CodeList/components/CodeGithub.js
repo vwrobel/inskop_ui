@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import RaisedButton from 'material-ui/RaisedButton';
 import GithubIcon from 'mdi-react/GithubIcon';
-import { scopethisDark } from '../../../../../../styles/MuiTheme';
+import { inskopDark } from '../../../../../../styles/MuiTheme';
 
 
 const styles = StyleSheet.create({

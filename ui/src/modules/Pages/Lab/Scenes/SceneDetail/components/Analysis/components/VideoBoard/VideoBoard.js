@@ -6,6 +6,7 @@ import Seek from './Seek/Seek';
 import GoTo from './GoTo/GoTo';
 import Timer from './Timer/Timer';
 import SelectVideo from './SelectVideo/SelectVideo';
+import EditDelete from './EditDelete/EditDelete';
 import FloatingSmallAddButton from '../../../../../../../../Common/All/Buttons/FloatingSmallAddButton';
 import { videoEditOpenDialogCreate } from '../../AnalysisActions';
 
@@ -21,6 +22,13 @@ const styles = StyleSheet.create({
 class VideoBoard extends Component {
   render() {
     const { scene, analysis, dispatch, playing, currentTime, videoSelected, videos, video } = this.props;
+    const videoEditDelete = analysis ? ( analysis.isUserOwner && video.slug !== 'orig' ?
+      <EditDelete
+        dispatch={dispatch}
+        video={video}
+      /> :
+      <div style={{ width: '15%' }} />
+    ) : <div style={{ width: '15%' }} />;
     return (
       <div className={css(styles.container)}>
         <Play dispatch={dispatch} playing={playing} />
@@ -33,8 +41,9 @@ class VideoBoard extends Component {
           addLabel='Add video'
           bottom
           disabled={!analysis}
-          highlight={analysis && video.name === 'orig'}
+          highlight={analysis && video.slug === 'orig'}
         />
+        { videoEditDelete }
       </div>
     );
   }

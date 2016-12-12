@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import Sidebar from 'react-sidebar';
-import { scopethisLighter } from '../../../../../../../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../../../../../../../styles/MuiTheme';
 import Select from './components/Select/Select';
 import Table from './components/Table';
+import Comment from './components/Comment';
 import ViewAnalysis from './components/ViewAnalysis/ViewAnalysis';
 
 const subToolBarStyles = {
@@ -12,7 +13,7 @@ const subToolBarStyles = {
     width: 350,
     top: 0,
     bottom: 0,
-    backgroundColor: scopethisLighter
+    backgroundColor: inskopLighter
   },
   content: {
     position: 'absolute',
@@ -33,17 +34,19 @@ const SubToolBar = (props) => {
     analysis,
     selections,
     windows,
-    videos,
+    video,
     availableFilters,
     availableTrackers
   } = props;
   let subToolBarContent = <div />;
+  let subToolBarLargeStyle = {};
   switch (toolBarSelection) {
     case 'view-analysis':
       subToolBarContent = (
         <ViewAnalysis
           analysis={analysis}
           scene={scene}
+          video={video}
         />);
       break;
     case 'select':
@@ -56,6 +59,11 @@ const SubToolBar = (props) => {
           windows={windows}
         />) : <div />;
       break;
+    case 'comment':
+      subToolBarLargeStyle = { sidebar: { width : 550 } };
+      subToolBarContent = analysis ? (
+        <Comment scene={scene} analysis={analysis} />) : <div />;
+    break;
     case 'table':
       subToolBarContent = analysis ? (
         <Table />) : <div />;
@@ -70,7 +78,7 @@ const SubToolBar = (props) => {
     <Sidebar
       sidebar={subToolBarContent}
       docked={toolBarDocked}
-      styles={subToolBarStyles}
+      styles={{...subToolBarStyles, ...subToolBarLargeStyle}}
       pullRight
     >
       {children}
@@ -87,7 +95,7 @@ SubToolBar.propTypes = {
   analysis: PropTypes.object,
   selections: PropTypes.array,
   windows: PropTypes.array,
-  videos: PropTypes.array,
+  video: PropTypes.object,
   availableFilters: PropTypes.array,
   availableTrackers: PropTypes.array
 };

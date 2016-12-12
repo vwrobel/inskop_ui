@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Sidebar from 'react-sidebar';
+import _ from 'underscore';
 import ToolBarContent from './components/ToolBarContent';
-import { scopethisLighter } from '../../../../../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../../../../../styles/MuiTheme';
 import SubToolBar from './components/SubToolBar/SubToolBar';
 
 const toolBarStyles = {
@@ -17,7 +18,7 @@ const toolBarStyles = {
     paddingTop: 20,
     width: 55,
     minWidth: 55,
-    backgroundColor: scopethisLighter
+    backgroundColor: inskopLighter
   },
   content: {
     position: 'absolute',
@@ -37,6 +38,8 @@ const ToolBar = (props) => {
     dispatch,
     tags,
     analysis,
+    videos,
+    videoSelected,
     selections,
     windows,
     availableFilters,
@@ -48,6 +51,7 @@ const ToolBar = (props) => {
     toolBarSelection={toolBarSelection}
     dispatch={dispatch}
   />);
+  const video = _.findWhere(videos, { slug: videoSelected });
   return (
     <Sidebar
       sidebar={toolBarContent}
@@ -62,6 +66,7 @@ const ToolBar = (props) => {
         scene={scene}
         tags={tags}
         analysis={analysis}
+        video={video}
         selections={selections}
         windows={windows}
         availableFilters={availableFilters}
@@ -81,6 +86,8 @@ ToolBar.propTypes = {
   dispatch: PropTypes.func,
   tags: PropTypes.array,
   analysis: PropTypes.object,
+  videos: PropTypes.array,
+  videoSelected: PropTypes.string,
   selections: PropTypes.array,
   windows: PropTypes.array,
   availableFilters: PropTypes.array,
@@ -89,7 +96,8 @@ ToolBar.propTypes = {
 
 const mapStateToProps = (state) => ({
   toolBarDocked: state.scene.detail.tools.toolBarDocked,
-  toolBarSelection: state.scene.detail.tools.toolBarSelection
+  toolBarSelection: state.scene.detail.tools.toolBarSelection,
+  videoSelected: state.scene.detail.analysis.videoSelected
 });
 
 

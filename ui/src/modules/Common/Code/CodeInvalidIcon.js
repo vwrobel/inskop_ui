@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import InvalidIcon from 'mdi-react/TimerSandIcon';
 import ReactTooltip from 'react-tooltip';
-import { scopethisPink } from '../../../styles/MuiTheme'
+import { inskopPink } from '../../../styles/MuiTheme'
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +25,7 @@ const CodeInvalidIcon = (props) => {
       delayHide={0}
       delayShow={500}
     >
-      <p>This code has to be validated by Scopethis before being available.</p>
+      <p>This code has to be validated by inskop before being available.</p>
       <p>You can write to contact@scopeth.is for more info.</p>
     </ReactTooltip> : null;
   return (

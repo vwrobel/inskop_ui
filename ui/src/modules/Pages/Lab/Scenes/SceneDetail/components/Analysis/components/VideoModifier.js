@@ -28,10 +28,9 @@ class VideoModifier extends Component {
       unlock,
       videoEdited,
       videoNameInput,
-      videoDescriptionInput,
+      videoProcessInput,
       videoOpenedModifyDialog,
       videoOpenedDeleteDialog,
-      scene,
       videoCanSubmit
     } = this.props;
     const childrenWithProps = React.Children.map(children,
@@ -61,8 +60,7 @@ class VideoModifier extends Component {
         </EditDialog>
         <DeleteDialog
           deleteObject={() => {
-            dispatch(push(`/lab/scenes/${scene.name}`));
-            deleteVideo(videoEdited.id);
+            deleteVideo(videoEdited.id, videoProcessInput);
           }}
           closeDeleteDialog={() => dispatch(videoEditOpenDialogDelete(false))}
           openedDeleteDialog={videoOpenedDeleteDialog || false}
@@ -80,7 +78,7 @@ VideoModifier.propTypes = {
   changeVideo: PropTypes.func,
   deleteVideo: PropTypes.func,
   videoNameInput: PropTypes.string,
-  videoDescriptionInput: PropTypes.string,
+  videoProcessInput: PropTypes.string,
   star: PropTypes.func,
   unlock: PropTypes.func,
   videoEdited: PropTypes.object,
@@ -91,7 +89,7 @@ VideoModifier.propTypes = {
 
 const mapStateToProps = (state) => ({
   videoNameInput: state.scene.detail.analysis.videoNameInput,
-  videoDescriptionInput: state.scene.detail.analysis.videoDescriptionInput,
+  videoProcessInput: state.scene.detail.analysis.videoProcessInput,
   videoEdited: state.scene.detail.analysis.videoEdited,
   videoOpenedModifyDialog: state.scene.detail.analysis.videoOpenedModifyDialog,
   videoOpenedDeleteDialog: state.scene.detail.analysis.videoOpenedDeleteDialog,
@@ -102,7 +100,7 @@ const VideoModifierWithState = connect(mapStateToProps)(VideoModifier);
 
 
 const DeleteVideoMutation = gql `
-mutation DeleteVideo($videoId: String!) {
+mutation DeleteVideo($videoId: ID!) {
   deleteVideo(videoId: $videoId) {
     ok
     video {
@@ -113,13 +111,17 @@ mutation DeleteVideo($videoId: String!) {
 }`;
 
 const ChangeVideoMutation = gql `
-mutation ChangeVideo($videoId: String!, $name: String, $description: String) {
-  changeVideo(videoId: $videoId, name: $name, description: $description) {
+mutation ChangeVideo($videoId: ID!, $processYaml: String) {
+  changeVideo(videoId: $videoId, processYaml: $processYaml) {
     ok
     video {
       id
       name
-      description
+      process {
+        name
+        slug
+        process
+      }
     }
   }
 }`;
@@ -127,8 +129,8 @@ mutation ChangeVideo($videoId: String!, $name: String, $description: String) {
 const VideoModifierWithStateAndData = compose(
   graphql(ChangeVideoMutation, {
     props: ({ mutate }) => ({
-      changeVideo: (videoId, name, description) =>
-        mutate({ variables: { videoId, name, description} })
+      changeVideo: (videoId, processYaml) =>
+        mutate({ variables: { videoId, processYaml} })
     })
   }),
   graphql(DeleteVideoMutation, {
@@ -136,14 +138,15 @@ const VideoModifierWithStateAndData = compose(
       deleteVideo: (videoId) => mutate({
         variables: { videoId },
         updateQueries: {
-          SceneQuery: (prev, { mutationResult }) => {
-            const allAnalysesList = prev.allAnalyses.edges.map((item) => item.node);
-            const deleteIndex = _.findIndex(allAnalysesList, (item) => item.id === videoId);
+          SelectionQuery: (prev, { mutationResult }) => {
+            const allVideosOfAnalysisList = prev.allVideosOfAnalysis.edges.map((item) => item.node);
+            const deleteIndex = _.findIndex(allVideosOfAnalysisList, (item) => item.id === videoId);
+            console.log(deleteIndex);
             if (deleteIndex < 0) {
               return prev;
             }
             return update(prev, {
-              allAnalyses: {
+              allVideosOfAnalysis: {
                 edges: {
                   $splice: [[deleteIndex, 1]]
                 }

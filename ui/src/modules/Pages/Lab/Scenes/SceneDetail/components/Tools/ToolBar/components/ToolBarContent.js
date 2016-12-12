@@ -3,6 +3,7 @@ import Divider from 'material-ui/Divider';
 import MovieIcon from 'mdi-react/MovieIcon';
 import SelectIcon from 'mdi-react/SelectIcon';
 import MicroscopeIcon from 'mdi-react/MicroscopeIcon';
+import CommentIcon from 'mdi-react/CommentIcon';
 import FilmstripIcon from 'mdi-react/FilmstripIcon';
 import ChartHistogramIcon from 'mdi-react/ChartHistogramIcon';
 import TableLargeIcon from 'mdi-react/TableLargeIcon';
@@ -29,6 +30,12 @@ const sceneItems = [
   { path: 'view-analysis',
     icon: <MicroscopeIcon />,
     name: 'View analysis',
+    authSceneOwner: false,
+    authAnalysisOwner: false,
+    authAnalysisExists: true },
+    { path: 'comment',
+    icon: <CommentIcon />,
+    name: 'Comment analysis',
     authSceneOwner: false,
     authAnalysisOwner: false,
     authAnalysisExists: true }

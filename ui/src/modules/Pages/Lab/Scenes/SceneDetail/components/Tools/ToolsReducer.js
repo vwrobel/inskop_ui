@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import { createReducer } from '../../../../../../../utils/Functions';
-import { scopethisPink } from '../../../../../../../styles/MuiTheme';
+import { inskopPink } from '../../../../../../../styles/MuiTheme';
 
 import {
   TOOLBAR_DOCK,
@@ -21,6 +21,7 @@ import {
   WINDOW_SET_COLOR,
   WINDOW_SET_TOOL,
   WINDOW_SET_MODE,
+  WINDOW_ERASE,
   WINDOW_TRANSFORM_ITEM,
   WINDOW_REMOVE_ITEM,
   WINDOW_DRAG_ITEM,
@@ -43,7 +44,7 @@ const initialState = {
   trackerParamInput: '',
   windowTool: 'rectangle',
   windowSize: 2,
-  windowColor: scopethisPink,
+  windowColor: inskopPink,
   windowFill: false,
   windowFillColor: '#444444',
   windowMode: null,
@@ -87,6 +88,9 @@ export default createReducer(initialState, {
   }),
   [WINDOW_DOWNLOAD_FAILURE]: (state) => Object.assign({}, state, {
     windowIsDownloading: false
+  }),
+  [WINDOW_ERASE]: (state) => Object.assign({}, state, {
+    sketchpadItems: _.reject(state.sketchpadItems, (item) => item.added === false)
   }),
   [TRACKER_SELECT]: (state, payload) => Object.assign({}, state, {
     trackerSelected: payload.selectedItem

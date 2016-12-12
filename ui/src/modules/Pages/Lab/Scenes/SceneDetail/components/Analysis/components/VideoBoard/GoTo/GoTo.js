@@ -4,7 +4,7 @@ import LeftIcon from 'mdi-react/ArrowLeftDropCircleOutlineIcon';
 import RightIcon from 'mdi-react/ArrowRightDropCircleOutlineIcon';
 import { StyleSheet, css } from 'aphrodite';
 import { videoPlayingSet, videoFrameChange, videoSlidedSet } from '../../../AnalysisActions';
-import { scopethisDark } from '../../../../../../../../../../styles/MuiTheme';
+import { inskopDark } from '../../../../../../../../../../styles/MuiTheme';
 
 
 const styles = StyleSheet.create({
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 });
 
 const iconStyle = {
-  color: scopethisDark,
+  color: inskopDark,
   display: 'flex'
 };
 

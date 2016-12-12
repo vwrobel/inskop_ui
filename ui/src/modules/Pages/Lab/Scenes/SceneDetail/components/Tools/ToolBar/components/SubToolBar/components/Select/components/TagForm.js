@@ -21,7 +21,7 @@ class TagForm extends Component {
     )) : null;
     return (
       <div className={css(styles.container)}>
-        <h5>1. Choose Tag</h5>
+        <h5>2. Choose Tag</h5>
         <div className={css(styles.form)}>
           <FormsySelect
             name='Select tag'

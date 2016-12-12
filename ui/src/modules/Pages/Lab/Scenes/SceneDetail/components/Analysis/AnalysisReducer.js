@@ -28,7 +28,8 @@ import {
   VIDEO_EDIT_CATEGORY_INPUT,
   VIDEO_EDIT_PROCESS_INPUT,
   VIDEO_EDIT_RESET,
-  VIDEO_EDIT_CAN_SUBMIT
+  VIDEO_EDIT_CAN_SUBMIT,
+  VIDEO_EDIT_SET_EDITED
 } from './AnalysisActions';
 
 const initialState = {
@@ -56,7 +57,7 @@ const initialState = {
   videoOpenedModifyDialog: false,
   videoOpenedSnackBar: false,
   videoEdited: null,
-  videoCanSubmit: false,
+  videoCanSubmit: false
 };
 
 export default createReducer(initialState, {
@@ -147,6 +148,9 @@ export default createReducer(initialState, {
   }),
   [VIDEO_EDIT_CAN_SUBMIT]: (state, payload) => Object.assign({}, state, {
     videoCanSubmit: payload.valid
+  }),
+  [VIDEO_EDIT_SET_EDITED]: (state, payload) => Object.assign({}, state, {
+    videoEdited: payload.video
   }),
   [VIDEO_EDIT_RESET]: (state, payload) => Object.assign({}, state, {
     videoNameInput: '',

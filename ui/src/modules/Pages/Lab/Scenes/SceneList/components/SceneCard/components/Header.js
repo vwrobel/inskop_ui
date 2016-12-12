@@ -3,7 +3,7 @@ import dateFormat from 'dateformat';
 import { StyleSheet, css } from 'aphrodite';
 import { CardHeader } from 'material-ui/Card';
 import { capitalizeFirstLetter } from '../../../../../../../../utils/Functions';
-import { scopethisLighter } from '../../../../../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../../../../../styles/MuiTheme';
 import SceneStatusIcon from '../../../../../../../Common/Scene/SceneStatusIcon';
 
 const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 
 const cardHeaderStyle = {
-  backgroundColor: scopethisLighter
+  backgroundColor: inskopLighter
 };
 
 const titleStyle = {

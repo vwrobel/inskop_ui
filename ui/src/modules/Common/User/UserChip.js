@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router';
 import UserStars from './UserStars';
-import { scopethisLighter } from '../../../styles/MuiTheme';
+import { inskopLighter } from '../../../styles/MuiTheme';
 
 
 const styles = StyleSheet.create({
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   stars: {
     fontSize: '10pt',
-    fontColor: scopethisLighter
+    fontColor: inskopLighter
   }
 });
 

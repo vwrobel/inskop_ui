@@ -11,7 +11,7 @@ import { analysisSelect } from '../Analysis/AnalysisActions';
 
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
+    width: '70%',
     height: '100%',
     marginRight: 'auto',
     marginLeft: 'auto',

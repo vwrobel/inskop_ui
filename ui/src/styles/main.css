@@ -13,7 +13,6 @@ body {
     background-color: #f9f9f9;
 }
 
-
 h1 {
     font-size: 34pt;
 }
@@ -45,6 +44,10 @@ p {
 a {
     text-decoration: none;
     color: #ff4081;
+}
+
+i {
+    font-style: italic;
 }
 
 em {

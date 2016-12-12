@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import Paper from 'material-ui/Paper';
 import CodeViewer from './CodeViewer';
 import CodeListButton from './CodeListButton';
-import { scopethisLighter } from '../../../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../../../styles/MuiTheme';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 
 const paperStyle = {
   height: '100%',
-  backgroundColor: scopethisLighter
+  backgroundColor: inskopLighter
 };
 
 const CodeDetailWrapper = (props) => {

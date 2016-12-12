@@ -2,7 +2,7 @@ import React from 'react';
 import Sidebar from 'react-sidebar';
 import { connect } from 'react-redux';
 import SideBarContent from './components/SideBarContent';
-import { scopethisLighter } from '../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../styles/MuiTheme';
 import { appBarHeight } from '../AppBar/AppBar';
 
 const sideBarStyles = {
@@ -14,7 +14,7 @@ const sideBarStyles = {
     paddingTop: 20,
     width: 180,
     minWidth: 180,
-    backgroundColor: scopethisLighter
+    backgroundColor: inskopLighter
   }
 };
 

@@ -4,7 +4,7 @@ import { Table, Column, Cell } from 'fixed-data-table-2';
 import CentralPaper from '../../Common/All/CentralPaper/CentralPaper';
 import free_icon from './plan_icons/free.svg';
 import more_icon from './plan_icons/more.svg';
-import { scopethisPink, scopethisDark, scopethisLighter } from '../../../styles/MuiTheme'
+import { inskopPink, inskopDark, inskopLighter } from '../../../styles/MuiTheme'
 import '../../../styles/fixed-data-table-2.css';
 
 const styles = StyleSheet.create({
@@ -28,14 +28,14 @@ const styles = StyleSheet.create({
   cell: {
     textAlign: 'center',
     verticalAlign: 'middle',
-    backgroundColor: scopethisLighter,
-    color: scopethisDark,
+    backgroundColor: inskopLighter,
+    color: inskopDark,
     width: '100%',
     height: '100%',
     border: 'none'
   },
   icon: {
-    fill: scopethisDark
+    fill: inskopDark
   },
   name: {
     fontSize: '14pt',

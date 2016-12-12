@@ -5,7 +5,7 @@ import { videoTimeChange, videoSlidingSet, videoSlidedSet } from '../../../Analy
 
 const styles = StyleSheet.create({
   container: {
-    width: '50%'
+    width: '40%'
   }
 });
 

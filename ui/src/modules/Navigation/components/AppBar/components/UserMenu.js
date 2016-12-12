@@ -17,10 +17,10 @@ import { setUserMenuOpen, setUserMenuAnchor } from '../AppBarActions';
 
 import { logout } from '../../../../Auth/AuthActions';
 
-import { scopethisLighter } from '../../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../../styles/MuiTheme';
 
 const style = {
-  backgroundColor: scopethisLighter
+  backgroundColor: inskopLighter
 };
 
 const poStyle = {

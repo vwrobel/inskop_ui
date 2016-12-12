@@ -26,7 +26,7 @@ class SelectionForm extends Component {
     )) : null;
     return (
       <div className={css(styles.container)}>
-        <h5>2. Name Object</h5>
+        <h5>3. Name Object</h5>
         <div className={css(styles.form)}>
           <FormsySelect
             name='Select selection'

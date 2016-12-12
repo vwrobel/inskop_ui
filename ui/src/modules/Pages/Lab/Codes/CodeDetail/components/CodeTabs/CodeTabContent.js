@@ -6,7 +6,8 @@ const CodeTabContent = (props) => {
   const containerStyle = {
     height: tabContentHeight,
     overflowY: 'auto',
-    overflowX: 'hidden'
+    overflowX: 'hidden',
+    backgroundColor: 'rgba(255,255,255,1)'
   };
   return (
     <div style={containerStyle}>

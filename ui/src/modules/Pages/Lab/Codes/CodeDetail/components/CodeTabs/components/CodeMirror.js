@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Codemirror from 'react-codemirror';
-import CodeEditButton from './CodeEditButton';
+import CodeEditButton from '../../../../../../../Common/All/Buttons/EditCheckCancelButton';
 import '../../../../../../../../styles/codemirror.css';
 import { codeDetailEditing, codeDetailCodeInput, codeDetailReset } from '../../../CodeDetailActions';
 

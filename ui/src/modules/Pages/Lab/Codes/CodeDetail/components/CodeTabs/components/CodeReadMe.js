@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { connect } from 'react-redux';
 import Codemirror from 'react-codemirror';
 import ReactMarkdown from 'react-markdown';
-import CodeEditButton from './CodeEditButton';
+import CodeEditButton from '../../../../../../../Common/All/Buttons/EditCheckCancelButton';
 import '../../../../../../../../styles/codemirror.css';
 import { codeDetailEditing, codeDetailReadMeInput } from '../../../CodeDetailActions';
 

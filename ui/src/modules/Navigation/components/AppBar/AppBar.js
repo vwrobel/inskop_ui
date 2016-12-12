@@ -4,7 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import { StyleSheet, css } from 'aphrodite';
 import IconButton from 'material-ui/IconButton';
 import OpenSideBar from 'material-ui/svg-icons/navigation/menu';
-import { scopethisLighter } from '../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../styles/MuiTheme';
 import AuthButton from './components/AuthButton';
 import AnimatedLogo from '../../../Brand/components/Logo/AnimatedLogo';
 import { sideBarDock } from '../SideBar/SideBarActions';
@@ -23,7 +23,7 @@ const appBarStyle = {
   height: appBarHeight
 };
 
-const iconStyle = { fill: scopethisLighter };
+const iconStyle = { fill: inskopLighter };
 
 const CustomAppBar = (props) => {
   const { sideBarDocked, dispatch } = props;

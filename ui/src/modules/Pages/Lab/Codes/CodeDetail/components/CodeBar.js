@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import ReactTooltip from 'react-tooltip';
 import InfoIcon from 'mdi-react/InformationVariantIcon';
 import CodeCategoryIcon from '../../../../../Common/Code/CodeCategoryIcon';
-import { scopethisLighter } from '../../../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../../../styles/MuiTheme';
 import Stamp from '../../../../../Common/All/Dates/Stamp';
 import Buttons from '../../CodeList/components/CodeButtons';
 
@@ -12,7 +12,7 @@ export const codeBarHeight = 60;
 const styles = StyleSheet.create({
   container: {
     height: codeBarHeight,
-    backgroundColor: scopethisLighter,
+    backgroundColor: inskopLighter,
     padding: 10,
     display: 'inline-block',
     width: '100%',

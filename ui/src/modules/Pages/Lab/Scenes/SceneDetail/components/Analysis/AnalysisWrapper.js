@@ -5,7 +5,7 @@ import VideoViewer from './components/VideoViewer';
 import SceneBoard from './components/SceneBoard/SceneBoard';
 import AnalysisBoard from './components/AnalysisBoard/AnalysisBoard';
 import VideoBoard from './components/VideoBoard/VideoBoard';
-import { scopethisLighter } from '../../../../../../../styles/MuiTheme';
+import { inskopLighter } from '../../../../../../../styles/MuiTheme';
 
 
 const styles = StyleSheet.create({
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 });
 
 const paperStyle = {
-  backgroundColor: scopethisLighter,
+  backgroundColor: inskopLighter,
   padding: 10,
   marginBottom: 10
 };

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { List, ListItem } from 'material-ui/List';
 import { StyleSheet, css } from 'aphrodite';
 import ReactTooltip from 'react-tooltip';
-import { scopethisLight, scopethisLighter } from '../../../../../../../../../styles/MuiTheme';
+import { inskopLight, inskopLighter } from '../../../../../../../../../styles/MuiTheme';
 import { toolBarActionSelect } from '../../ToolsActions';
 
 
@@ -12,7 +12,7 @@ const listItemStyle = {
 
 const disabledListItemStyle = {
   fontSize: '14pt',
-  fill: scopethisLight
+  fill: inskopLight
 };
 
 const styles = StyleSheet.create({
@@ -41,7 +41,7 @@ const renderItem = (item, dispatch, toolBarSelection, scene, analysis) => {
 
   let innerDivStyle = {};
   if (path === toolBarSelection) {
-    innerDivStyle = { backgroundColor: scopethisLight };
+    innerDivStyle = { backgroundColor: inskopLight };
   }
   const isDisabledForScene = authSceneOwner && !scene.isUserOwner;
   const isDisabledForAnalysis = (analysis === null) ? authAnalysisOwner :

@@ -27,6 +27,7 @@ class Rectangle extends Component {
       height,
       stroke,
       strokeWidth,
+      dash,
       mode,
       containerWidth,
       containerHeight
@@ -40,6 +41,7 @@ class Rectangle extends Component {
         height={height * containerHeight}
         stroke={stroke}
         strokeWidth={strokeWidth}
+        dash={dash}
         shadowBlur={10}
         draggable={mode === 'transform'}
         onDragStart={() => this.onDragStart()}
@@ -60,6 +62,7 @@ Rectangle.propTypes = {
   containerHeight: PropTypes.number,
   stroke: PropTypes.string,
   strokeWidth: PropTypes.number,
+  dash: PropTypes.array,
   mode: PropTypes.string
 };
 

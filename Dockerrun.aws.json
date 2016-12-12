@@ -5,13 +5,13 @@
   "containerDefinitions": [
     {
       "name": "ui",
-      "image": "939102736904.dkr.ecr.eu-west-1.amazonaws.com/scopethis_ui:latest",
+      "image": "939102736904.dkr.ecr.eu-west-1.amazonaws.com/inskop_ui:latest",
       "essential": true,
       "memory": 1536
     },
     {
       "name": "nginx",
-      "image": "939102736904.dkr.ecr.eu-west-1.amazonaws.com/scopethis_ui_nginx:latest",
+      "image": "939102736904.dkr.ecr.eu-west-1.amazonaws.com/inskop_ui_nginx:latest",
       "essential": true,
       "memory": 128,
       "portMappings": [

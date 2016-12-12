@@ -4,7 +4,7 @@ import PlayIcon from 'mdi-react/PlayIcon';
 import PauseIcon from 'mdi-react/PauseIcon';
 import { StyleSheet, css } from 'aphrodite';
 import { videoPlayingSet } from '../../../AnalysisActions';
-import { scopethisDark } from '../../../../../../../../../../styles/MuiTheme';
+import { inskopDark } from '../../../../../../../../../../styles/MuiTheme';
 
 
 const styles = StyleSheet.create({
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 });
 
 const iconStyle = {
-  color: scopethisDark
+  color: inskopDark
 };
 
 class Play extends Component {

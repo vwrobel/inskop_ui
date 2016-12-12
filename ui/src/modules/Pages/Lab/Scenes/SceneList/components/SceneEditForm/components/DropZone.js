@@ -4,7 +4,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import { StyleSheet, css } from 'aphrodite';
 import UploadIcon from 'mdi-react/UploadIcon';
 import { CardMedia } from 'material-ui/Card';
-import { scopethisPink, scopethisLighter, scopethisDark } from '../../../../../../../../styles/MuiTheme';
+import { inskopPink, inskopLighter, inskopDark } from '../../../../../../../../styles/MuiTheme';
 import { sceneEditFileDrop } from '../../../SceneListActions';
 
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     height: 155,
     borderStyle: 'solid',
     borderWidth: '1px',
-    borderColor: scopethisLighter,
+    borderColor: inskopLighter,
     textAlign: 'center'
   },
   activeDropZone: {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     padding: '10px',
     textAlign: 'center',
     opacity: 1,
-    color: scopethisDark
+    color: inskopDark
   },
   aboutDroppedFile: {
     padding: 10

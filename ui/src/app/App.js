@@ -3,15 +3,15 @@ import Favicon from 'react-favicon';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { StyleSheet, css } from 'aphrodite';
 import AuthWidget from '../modules/Auth/components/AuthWidget';
-import favicon from '../public/scopethis_favicon.png';
-import { scopethisDark, scopethisLighter } from '../styles/MuiTheme';
+import favicon from '../public/favicon.png';
+import { inskopDark, inskopLighter } from '../styles/MuiTheme';
 
 injectTapEventPlugin();
 
 const styles = StyleSheet.create({
   app: {
-    color: scopethisDark,
-    backgroundColor: scopethisLighter
+    color: inskopDark,
+    backgroundColor: inskopLighter
   }
 });
 

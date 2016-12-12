@@ -9,6 +9,7 @@ export const ANALYSIS_EDIT_RESET = 'ANALYSIS_EDIT_RESET';
 export const ANALYSIS_EDIT_CAN_SUBMIT = 'ANALYSIS_EDIT_CAN_SUBMIT';
 export const ANALYSIS_FULL_RESET = 'ANALYSIS_FULL_RESET';
 export const ANALYSIS_EDIT_SET_EDITED = 'ANALYSIS_EDIT_SET_EDITED';
+
 export const VIDEO_TIME_CHANGE = 'VIDEO_TIME_CHANGE';
 export const VIDEO_PLAYING = 'VIDEO_PLAYING';
 export const VIDEO_SLIDING = 'VIDEO_SLIDING';
@@ -26,6 +27,7 @@ export const VIDEO_EDIT_OPEN_DIALOG_CREATE = 'VIDEO_EDIT_OPEN_DIALOG_CREATE';
 export const VIDEO_EDIT_OPEN_DIALOG_MODIFY = 'VIDEO_EDIT_OPEN_DIALOG_MODIFY';
 export const VIDEO_EDIT_OPEN_DIALOG_DELETE = 'VIDEO_EDIT_OPEN_DIALOG_DELETE';
 export const VIDEO_EDIT_OPEN_SNACKBAR = 'VIDEO_EDIT_OPEN_SNACKBAR';
+export const VIDEO_EDIT_SET_EDITED = 'VIDEO_EDIT_SET_EDITED';
 
 export const analysisEditNameInput = (input) => ({
   type: ANALYSIS_EDIT_NAME_INPUT,
@@ -218,5 +220,12 @@ export const videoEditOpenSnackBar = (opened) => ({
 export const videoEditReset = () => ({
   type: VIDEO_EDIT_RESET,
   payload: {
+  }
+});
+
+export const videoEditSetEdited = (video) => ({
+  type: VIDEO_EDIT_SET_EDITED,
+  payload: {
+    video
   }
 });

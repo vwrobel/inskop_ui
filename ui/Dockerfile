@@ -8,11 +8,11 @@ CMD ["/sbin/my_init"]
 
 FROM node:6.6.0
 RUN npm install webpack -g
-COPY package.json/ /var/www/scopethis/package.json
-RUN cd /var/www/scopethis/ && npm install
+COPY package.json/ /var/www/inskop/package.json
+RUN cd /var/www/inskop/ && npm install
 
-WORKDIR /var/www/scopethis
-COPY ./ /var/www/scopethis
+WORKDIR /var/www/inskop
+COPY ./ /var/www/inskop
 ENV NODE_ENV production
 EXPOSE 8000
 CMD ["npm", "run", "buildandstart"]

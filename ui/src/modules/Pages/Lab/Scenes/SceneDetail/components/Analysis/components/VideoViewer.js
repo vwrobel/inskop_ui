@@ -47,7 +47,6 @@ class VideoViewer extends Component {
   componentDidUpdate() {
     const { leader, sliding, slided, currentTime, dispatch, windows, scene } = this.props;
     if (slided && leader) {
-      console.log('update')
       this.refs.player.seekTo(currentTime);
       dispatch(videoSlidedSet(false));
     }

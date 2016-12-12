@@ -32,7 +32,7 @@ class AnalysisBoard extends Component {
       unlock={unlock}
       star={star}
       containerWidth={''}
-    /> : null;
+    /> : <div style={{ height: 48, width: 250, display: 'inline-block' }}/>;
     return (
       <div className={css(styles.container)}>
         <Selector
