@@ -8,7 +8,7 @@ import { push } from 'react-router-redux'
 import update from 'react-addons-update';
 import EditDialog from '../../../../../../../Common/All/Dialog/EditDialog';
 import VideoEditForm from './VideoEditForm/VideoEditForm';
-import { videoEditOpenDialogCreate, videoEditOpenSnackBar, videoSelect } from '../AnalysisActions';
+import { videoEditOpenDialogCreate, videoEditOpenSnackBar, videoSelect, videoProcessSetStage } from '../AnalysisActions';
 import Gnome from '../../../../../../../Common/All/Loading/Gnome/Gnome';
 
 
@@ -18,12 +18,29 @@ const styles = StyleSheet.create({
 });
 
 // Must be outside render otherwise the snack bar hides and shows again
-const snackBarMessage =
+
+const snackBarMessageFilter =
   <div>
     <div style={{display: 'inline-block', marginRight: 10, position: 'relative', top: 10}}>
       <Gnome />
     </div>
-    <div style={{display: 'inline-block'}}>Your video is being processed.</div>
+    <div style={{display: 'inline-block'}}>Your video is being filtered</div>
+  </div>;
+
+const snackBarMessageTrack =
+  <div>
+    <div style={{display: 'inline-block', marginRight: 10, position: 'relative', top: 10}}>
+      <Gnome />
+    </div>
+    <div style={{display: 'inline-block'}}>Your video is being tracked</div>
+  </div>;
+
+const snackBarMessageClean =
+  <div>
+    <div style={{display: 'inline-block', marginRight: 10, position: 'relative', top: 10}}>
+      <Gnome />
+    </div>
+    <div style={{display: 'inline-block'}}>Your video is being cleaned</div>
   </div>;
 
 class VideoAdder extends Component {
@@ -33,6 +50,41 @@ class VideoAdder extends Component {
     this.videoAddSubmit = this.videoAddSubmit.bind(this);
     this.videoAddAbort = this.videoAddAbort.bind(this);
   }
+
+  componentDidMount(){
+    const { dispatch } = this.props;
+    this.connection = new WebSocket('ws://localhost:8000/dashboard/');
+    this.connection.onmessage = function(message) {
+        console.log("Got message: " + message.data);
+        const data = JSON.parse(message.data);
+
+        if (data.action == "started") {
+          dispatch(videoProcessSetStage('filtered'));
+          dispatch(videoEditOpenSnackBar(true));
+        }
+        if (data.action == "vid filtered") {
+          dispatch(videoEditOpenSnackBar(false));
+          dispatch(videoProcessSetStage('tracked'));
+          dispatch(videoEditOpenSnackBar(true));
+        }
+        if (data.action == "vid tracked") {
+          dispatch(videoEditOpenSnackBar(false));
+          dispatch(videoProcessSetStage('cleaned'));
+          dispatch(videoEditOpenSnackBar(true));
+        }
+
+        // if action is completed, just update the status
+        else if (data.action == "completed"){
+          dispatch(videoSelect(data.video_slug));
+          dispatch(videoEditOpenSnackBar(false));
+        }
+    };
+  }
+
+  handleData(data) {
+    let result = JSON.parse(data);
+  }
+
   videoAddSubmit() {
     const {
       analysis,
@@ -42,10 +94,15 @@ class VideoAdder extends Component {
       addVideo
     } = this.props;
     dispatch(videoEditOpenSnackBar(true));
+
     addVideo(analysis.id, 1, videoNameInput, videoProcessInput).then(
       (res) => {
-        dispatch(videoSelect(res.data.addVideo.video.slug));
-        dispatch(videoEditOpenSnackBar(false));
+        const message = {
+          action: "start_process_vid",
+          job_name:`${analysis.slug}-${res.data.addVideo.video.slug}`,
+          vid_id: res.data.addVideo.video.id
+        };
+        this.connection.send(JSON.stringify(message));
       });
   }
 
@@ -63,9 +120,14 @@ class VideoAdder extends Component {
       videoProcessInput,
       children,
       videoCanSubmit,
-      videoOpenedSnackBar
+      videoOpenedSnackBar,
+      videoProcessStage
     } = this.props;
-
+    const snackBarMessage = videoProcessStage === 'filtered' ?
+      snackBarMessageFilter : (
+      videoProcessStage === 'tracked' ?
+        snackBarMessageTrack : snackBarMessageClean
+    );
     return (
       <div className={css(styles.container)}>
         {children}
@@ -93,6 +155,7 @@ class VideoAdder extends Component {
   }
 }
 
+
 VideoAdder.propTypes = {
   dispatch: PropTypes.func,
   videoOpenedCreateDialog: PropTypes.bool,
@@ -103,7 +166,8 @@ VideoAdder.propTypes = {
   scene: PropTypes.object,
   analysis: PropTypes.object,
   videoCanSubmit: PropTypes.bool,
-  videoOpenedSnackBar: PropTypes.bool
+  videoOpenedSnackBar: PropTypes.bool,
+  videoProcessStage: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
@@ -112,7 +176,8 @@ const mapStateToProps = (state) => ({
   videoDescriptionInput: state.scene.detail.analysis.videoDescriptionInput,
   videoProcessInput: state.scene.detail.analysis.videoProcessInput,
   videoCanSubmit: state.scene.detail.analysis.videoCanSubmit,
-  videoOpenedSnackBar: state.scene.detail.analysis.videoOpenedSnackBar
+  videoOpenedSnackBar: state.scene.detail.analysis.videoOpenedSnackBar,
+  videoProcessStage: state.scene.detail.analysis.videoProcessStage
 });
 
 const VideoAdderWithState = connect(mapStateToProps)(VideoAdder);
@@ -141,6 +206,8 @@ mutation AddVideo($analysisId: ID!, $cameraNumber: Int!, $processName: String!, 
     }
   }
 }`;
+
+
 
 const VideoAdderWithStateAndData = compose(
   graphql(AddVideoMutation, {

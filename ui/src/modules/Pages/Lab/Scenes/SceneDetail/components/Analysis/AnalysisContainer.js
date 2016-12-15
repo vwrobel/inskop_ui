@@ -7,7 +7,7 @@ import AnalysisAdder from './components/AnalysisAdder';
 import AnalysisModifier from './components/AnalysisModifier';
 import VideoAdder from './components/VideoAdder';
 import VideoModifier from './components/VideoModifier';
-import { analysisSelect } from '../Analysis/AnalysisActions';
+
 
 const styles = StyleSheet.create({
   container: {

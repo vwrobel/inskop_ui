@@ -28,6 +28,7 @@ export const VIDEO_EDIT_OPEN_DIALOG_MODIFY = 'VIDEO_EDIT_OPEN_DIALOG_MODIFY';
 export const VIDEO_EDIT_OPEN_DIALOG_DELETE = 'VIDEO_EDIT_OPEN_DIALOG_DELETE';
 export const VIDEO_EDIT_OPEN_SNACKBAR = 'VIDEO_EDIT_OPEN_SNACKBAR';
 export const VIDEO_EDIT_SET_EDITED = 'VIDEO_EDIT_SET_EDITED';
+export const VIDEO_PROCESS_SET_STAGE = 'VIDEO_PROCESS_SET_STAGE';
 
 export const analysisEditNameInput = (input) => ({
   type: ANALYSIS_EDIT_NAME_INPUT,
@@ -227,5 +228,12 @@ export const videoEditSetEdited = (video) => ({
   type: VIDEO_EDIT_SET_EDITED,
   payload: {
     video
+  }
+});
+
+export const videoProcessSetStage = (stage) => ({
+  type: VIDEO_PROCESS_SET_STAGE,
+  payload: {
+    stage
   }
 });

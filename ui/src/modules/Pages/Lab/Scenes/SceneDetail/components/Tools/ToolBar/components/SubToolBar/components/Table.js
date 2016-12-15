@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 
 class Table extends Component {
   render() {
-    const { dispatch, authenticated, token } = this.props;
+    const { dispatch, authenticated, token, scene, analysis } = this.props;
     const dataFormatList = ['csv'];
     const dataFormatItems = dataFormatList.map((dataFormat, dataFormatIndex) => (
       <MenuItem key={dataFormatIndex} value={dataFormatIndex} primaryText={dataFormat} />
@@ -44,7 +44,7 @@ class Table extends Component {
             onClick={() => {
               dispatch(windowsDownload(authenticated, token)).then(
                 (res) => {
-                  const exportFilename = 'mydata.csv';
+                  const exportFilename = `${scene.slug}-${analysis.slug}.csv`;
                   const csvData = new Blob([res.payload.text], { type: 'text/csv;charset=utf-8;' });
                   if (navigator.msSaveBlob) {
                     navigator.msSaveBlob(csvData, exportFilename);
@@ -70,7 +70,9 @@ class Table extends Component {
 Table.propTypes = {
   dispatch: PropTypes.func,
   token: PropTypes.string,
-  authenticated: PropTypes.bool
+  authenticated: PropTypes.bool,
+  scene: PropTypes.object,
+  analysis: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({

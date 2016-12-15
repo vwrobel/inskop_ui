@@ -77,7 +77,7 @@ class CodeTable extends Component {
           header={<Cell>Description</Cell>}
           cell={({ rowIndex }) => (
             <Cell>
-              {codes[rowIndex].description}
+              <p style={{ marginLeft: 20, opacity: 0.8 }}>{codes[rowIndex].description}</p>
             </Cell>
           )}
           width={columnWidths.description}

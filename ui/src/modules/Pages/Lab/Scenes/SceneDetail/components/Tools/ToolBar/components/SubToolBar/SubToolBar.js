@@ -66,7 +66,7 @@ const SubToolBar = (props) => {
     break;
     case 'table':
       subToolBarContent = analysis ? (
-        <Table />) : <div />;
+        <Table scene={scene} analysis={analysis} />) : <div />;
       break;
     default:
       subToolBarContent = (
