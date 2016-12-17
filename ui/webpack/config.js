@@ -20,6 +20,7 @@ const plugins = [
       'PROD_APP_PORT': JSON.stringify(process.env.PROD_APP_PORT),
       'WEBPACK_PORT': JSON.stringify(process.env.WEBPACK_PORT),
       'SERVER_ADDRESS': JSON.stringify(process.env.SERVER_ADDRESS),
+      'WS_ADDRESS': JSON.stringify(process.env.WS_ADDRESS),
       'MEDIA_URL': JSON.stringify(process.env.MEDIA_URL),
       'AUTH0_DOMAIN': JSON.stringify(process.env.AUTH0_DOMAIN),
       'AUTH0_CLIENT_ID': JSON.stringify(process.env.AUTH0_CLIENT_ID),

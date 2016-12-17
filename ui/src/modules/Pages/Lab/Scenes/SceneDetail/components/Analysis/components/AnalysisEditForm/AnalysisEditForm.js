@@ -40,7 +40,7 @@ class AnalysisEditForm extends Component {
       >
         <FormsyText
           name='name'
-          validations='isAlphanumeric'
+          validations='isExisty'
           validationError='This is not a valid name'
           required
           floatingLabelText='Name'

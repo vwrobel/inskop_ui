@@ -64,7 +64,7 @@ const itemsArray = [navItems, sceneItems, toolItems, dataItems];
 class ToolBarContent extends Component {
 
   render() {
-    const { toolBarSelection, dispatch, scene, analysis } = this.props;
+    const { toolBarSelection, dispatch, scene, analysis, video } = this.props;
     const toolBarItems = itemsArray.map((items, itemsIndex) => {
       const divider = (itemsIndex === itemsArray.length - 1) ? null : <Divider key={`divider_${itemsIndex}`} />;
       return (
@@ -76,6 +76,7 @@ class ToolBarContent extends Component {
             toolBarSelection={toolBarSelection}
             scene={scene}
             analysis={analysis}
+            video={video}
           />
           {divider}
         </div>);
@@ -91,6 +92,7 @@ class ToolBarContent extends Component {
 ToolBarContent.propTypes = {
   scene: PropTypes.object,
   analysis: PropTypes.object,
+  video: PropTypes.object,
   dispatch: PropTypes.func,
   toolBarSelection: PropTypes.string
 };

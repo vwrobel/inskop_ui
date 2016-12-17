@@ -5,17 +5,24 @@ import _ from 'underscore';
 import gql from 'graphql-tag';
 import Loading from '../../../../../Common/All/Loading/Loading';
 import SceneDetailContainerWithAllData from './SceneDetailContainerWithAllData';
+import { analysisSetLoaded } from './Analysis/AnalysisActions';
 
 
 class SceneDetailContainer extends Component {
+
+  componentDidUpdate() {
+    const { data, dispatch } = this.props;
+    if (!data.loading) {
+      dispatch(analysisSetLoaded(true));
+    }
+  }
 
   render() {
     const {
       data,
       dispatch,
-      analysisSlug,
-      toolSlug,
-      analysisSelected
+      analysisSelected,
+      videoSelected
     } = this.props;
 
     if (data.loading) {
@@ -32,13 +39,12 @@ class SceneDetailContainer extends Component {
       <SceneDetailContainerWithAllData
         scene={scene}
         origVideo={origVideo}
+        videoSelected={videoSelected}
         availableFilters={availableFilters}
         availableTrackers={availableTrackers}
         dispatch={dispatch}
         analyses={analyses}
         analysis={analysis}
-        analysisSlug={analysisSlug}
-        toolSlug={toolSlug}
       />
     );
   }
@@ -48,8 +54,8 @@ SceneDetailContainer.propTypes = {
   dispatch: PropTypes.func,
   data: PropTypes.object,
   analysisSelected: PropTypes.string,
-  analysisSlug: PropTypes.string,
-  toolSlug: PropTypes.string
+  analysisLoaded: PropTypes.bool,
+  videoSelected: PropTypes.string
 };
 
 const SceneQuery = gql `
@@ -152,7 +158,8 @@ const SceneDetailContainerWithData = compose(
 )(SceneDetailContainer);
 
 const mapStateToProps = (state) => ({
-  analysisSelected: state.scene.detail.analysis.analysisSelected
+  analysisSelected: state.scene.detail.analysis.analysisSelected,
+  videoSelected: state.scene.detail.analysis.videoSelected
 });
 
 const SceneDetailContainerWithDataAndState = connect(mapStateToProps)(SceneDetailContainerWithData);

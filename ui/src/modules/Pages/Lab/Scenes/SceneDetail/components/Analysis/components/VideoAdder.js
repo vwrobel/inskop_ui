@@ -8,8 +8,8 @@ import { push } from 'react-router-redux'
 import update from 'react-addons-update';
 import EditDialog from '../../../../../../../Common/All/Dialog/EditDialog';
 import VideoEditForm from './VideoEditForm/VideoEditForm';
-import { videoEditOpenDialogCreate, videoEditOpenSnackBar, videoSelect, videoProcessSetStage } from '../AnalysisActions';
-import Gnome from '../../../../../../../Common/All/Loading/Gnome/Gnome';
+import { videoEditOpenDialogCreate, videoEditOpenSnackBar } from '../AnalysisActions';
+import VideoProcessMessage from './VideoSnackBarMessage';
 
 
 const styles = StyleSheet.create({
@@ -17,31 +17,7 @@ const styles = StyleSheet.create({
   }
 });
 
-// Must be outside render otherwise the snack bar hides and shows again
-
-const snackBarMessageFilter =
-  <div>
-    <div style={{display: 'inline-block', marginRight: 10, position: 'relative', top: 10}}>
-      <Gnome />
-    </div>
-    <div style={{display: 'inline-block'}}>Your video is being filtered</div>
-  </div>;
-
-const snackBarMessageTrack =
-  <div>
-    <div style={{display: 'inline-block', marginRight: 10, position: 'relative', top: 10}}>
-      <Gnome />
-    </div>
-    <div style={{display: 'inline-block'}}>Your video is being tracked</div>
-  </div>;
-
-const snackBarMessageClean =
-  <div>
-    <div style={{display: 'inline-block', marginRight: 10, position: 'relative', top: 10}}>
-      <Gnome />
-    </div>
-    <div style={{display: 'inline-block'}}>Your video is being cleaned</div>
-  </div>;
+const videoProcessMessage = <VideoProcessMessage />;
 
 class VideoAdder extends Component {
 
@@ -51,50 +27,14 @@ class VideoAdder extends Component {
     this.videoAddAbort = this.videoAddAbort.bind(this);
   }
 
-  componentDidMount(){
-    const { dispatch } = this.props;
-    this.connection = new WebSocket('ws://localhost:8000/dashboard/');
-    this.connection.onmessage = function(message) {
-        console.log("Got message: " + message.data);
-        const data = JSON.parse(message.data);
-
-        if (data.action == "started") {
-          dispatch(videoProcessSetStage('filtered'));
-          dispatch(videoEditOpenSnackBar(true));
-        }
-        if (data.action == "vid filtered") {
-          dispatch(videoEditOpenSnackBar(false));
-          dispatch(videoProcessSetStage('tracked'));
-          dispatch(videoEditOpenSnackBar(true));
-        }
-        if (data.action == "vid tracked") {
-          dispatch(videoEditOpenSnackBar(false));
-          dispatch(videoProcessSetStage('cleaned'));
-          dispatch(videoEditOpenSnackBar(true));
-        }
-
-        // if action is completed, just update the status
-        else if (data.action == "completed"){
-          dispatch(videoSelect(data.video_slug));
-          dispatch(videoEditOpenSnackBar(false));
-        }
-    };
-  }
-
-  handleData(data) {
-    let result = JSON.parse(data);
-  }
-
   videoAddSubmit() {
     const {
       analysis,
-      dispatch,
       videoNameInput,
       videoProcessInput,
-      addVideo
+      addVideo,
+      connection
     } = this.props;
-    dispatch(videoEditOpenSnackBar(true));
-
     addVideo(analysis.id, 1, videoNameInput, videoProcessInput).then(
       (res) => {
         const message = {
@@ -102,7 +42,7 @@ class VideoAdder extends Component {
           job_name:`${analysis.slug}-${res.data.addVideo.video.slug}`,
           vid_id: res.data.addVideo.video.id
         };
-        this.connection.send(JSON.stringify(message));
+        connection.send(JSON.stringify(message));
       });
   }
 
@@ -115,22 +55,23 @@ class VideoAdder extends Component {
 
   render() {
     const {
+      connection,
       dispatch,
       videoOpenedCreateDialog,
       videoProcessInput,
       children,
       videoCanSubmit,
-      videoOpenedSnackBar,
-      videoProcessStage
+      videoOpenedSnackBar
     } = this.props;
-    const snackBarMessage = videoProcessStage === 'filtered' ?
-      snackBarMessageFilter : (
-      videoProcessStage === 'tracked' ?
-        snackBarMessageTrack : snackBarMessageClean
+    const childrenWithConnection = React.Children.map(children,
+     (child) => React.cloneElement(child, {
+       connection: connection
+     })
     );
+    // Message must be outside render otherwise the snackbar hides and shows again
     return (
       <div className={css(styles.container)}>
-        {children}
+        {childrenWithConnection}
         <EditDialog
           dialogTitle={'New video'}
           dialogValidateLabel={'Create'}
@@ -143,7 +84,7 @@ class VideoAdder extends Component {
         </EditDialog>
         <Snackbar
           open={videoOpenedSnackBar}
-          message={snackBarMessage}
+          message={videoProcessMessage}
           onRequestClose={(reason) => {
             if (reason !== 'clickaway') {
               dispatch(videoEditOpenSnackBar(false));
@@ -167,7 +108,8 @@ VideoAdder.propTypes = {
   analysis: PropTypes.object,
   videoCanSubmit: PropTypes.bool,
   videoOpenedSnackBar: PropTypes.bool,
-  videoProcessStage: PropTypes.string
+  videoProcessStage: PropTypes.string,
+  connection: PropTypes.any
 };
 
 const mapStateToProps = (state) => ({
@@ -220,7 +162,10 @@ const VideoAdderWithStateAndData = compose(
             return update(prev, {
               allVideosOfAnalysis: {
                 edges: {
-                  $unshift: [{ node: newVideo }]
+                  $unshift: [{
+                    __typename: "VideoNodeEdge",
+                    node: newVideo
+                  }]
                 }
               }
             });

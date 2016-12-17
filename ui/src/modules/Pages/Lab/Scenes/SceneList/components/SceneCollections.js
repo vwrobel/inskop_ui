@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import gql from 'graphql-tag';
-import Fragment from 'graphql-fragments';
 import SceneCollection from './SceneCollection';
 import SceneAdder from './SceneAdder';
 import SceneModifier from './SceneModifier';
@@ -42,7 +41,7 @@ SceneCollections.propTypes = {
 };
 
 SceneCollections.fragments = {
-  scene: new Fragment(gql`
+  scene: gql`
     fragment SceneCollectionScene on SceneNode {
       id
       name
@@ -68,7 +67,7 @@ SceneCollections.fragments = {
         analysisStars
       }
     }
-  `)
+  `
 };
 
 const SceneCollectionsQuery = gql `
@@ -95,14 +94,12 @@ const SceneCollectionsQuery = gql `
       }
     }
   }
+  ${SceneCollections.fragments.scene}
 `;
 
 
 const SceneCollectionsWithData = compose(
   graphql(SceneCollectionsQuery, {
-    options: ({ params }) => ({
-      fragments: SceneCollections.fragments.scene.fragments()
-    }),
     props: ({ data: { loading, myScenes, favoriteScenes, featuredScenes } }) => ({
       loading, myScenes, favoriteScenes, featuredScenes
     })

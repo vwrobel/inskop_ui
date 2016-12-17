@@ -5,6 +5,7 @@ import {
   SCENE_EDIT_NAME_INPUT,
   SCENE_EDIT_DESCRIPTION_INPUT,
   SCENE_EDIT_STATUS_INPUT,
+  SCENE_EDIT_LOCK_INPUT,
   SCENE_EDIT_FILEDROP,
   SCENEADD_UPLOAD_REQUEST,
   SCENEADD_UPLOAD_SUCCESS,
@@ -28,6 +29,7 @@ const initialState = {
   sceneNameInput: '',
   sceneDescriptionInput: '',
   sceneStatusInput: false,
+  sceneLockInput: false,
   droppedFile: null,
   validDroppedFile: false,
   openedCreateDialog: false,
@@ -57,6 +59,9 @@ const sceneListReducer = createReducer(initialState, {
   [SCENE_EDIT_STATUS_INPUT]: (state, payload) => Object.assign({}, state, {
     sceneStatusInput: payload.input
   }),
+  [SCENE_EDIT_LOCK_INPUT]: (state, payload) => Object.assign({}, state, {
+    sceneLockInput: payload.input
+  }),
   [SCENE_EDIT_FILEDROP]: (state, payload) => Object.assign({}, state, {
     droppedFile: payload.droppedFile,
     validDroppedFile: payload.droppedFile ?
@@ -67,6 +72,7 @@ const sceneListReducer = createReducer(initialState, {
     sceneNameInput: '',
     sceneDescriptionInput: '',
     sceneStatusInput: false,
+    sceneLockInput: false,
     droppedFile: null,
     validDroppedFile: false,
     canSubmit: false,

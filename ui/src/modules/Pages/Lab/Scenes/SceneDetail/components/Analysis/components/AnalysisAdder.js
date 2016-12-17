@@ -32,7 +32,8 @@ class AnalysisAdder extends Component {
     } = this.props;
     addAnalysis(scene.id, analysisNameInput, analysisDescriptionInput).then(
       (res) => {
-        dispatch(push(`/lab/scenes/${scene.slug}/analyses/${res.data.addAnalysis.analysis.slug}/view-analysis`));
+        const newAnalysisSlug = res.data.addAnalysis.analysis.slug;
+        dispatch(push(`/lab/scenes/${scene.slug}/analyses/${newAnalysisSlug}/videos/orig/tools/view-analysis`));
       }
     );
   }
@@ -139,7 +140,10 @@ const AnalysisAdderWithStateAndData = compose(
             return update(prev, {
               allAnalyses: {
                 edges: {
-                  $unshift: [{ node: newAnalysis }]
+                  $unshift: [{
+                    __typename: "AnalysisNodeEdge",
+                    node: newAnalysis
+                  }]
                 }
               }
             });

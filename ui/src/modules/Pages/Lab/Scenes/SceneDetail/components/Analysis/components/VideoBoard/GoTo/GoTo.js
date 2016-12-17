@@ -9,14 +9,13 @@ import { inskopDark } from '../../../../../../../../../../styles/MuiTheme';
 
 const styles = StyleSheet.create({
   container: {
-    width: '10%',
+    width: 100,
     display: 'flex'
   }
 });
 
 const iconStyle = {
-  color: inskopDark,
-  display: 'flex'
+  color: inskopDark
 };
 
 

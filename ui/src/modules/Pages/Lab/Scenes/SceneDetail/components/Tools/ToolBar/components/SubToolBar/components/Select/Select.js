@@ -247,7 +247,10 @@ const SelectWithStateAndData = compose(
             return isNewTag ? update(prev, {
               allTags: {
                 edges: {
-                  $unshift: [{ node: newTag }]
+                  $unshift: [{
+                    __typename: "TagNodeEdge",
+                    node: newTag
+                  }]
                 }
               }
             }) : prev;
@@ -267,7 +270,10 @@ const SelectWithStateAndData = compose(
               return update(prev, {
                 allSelections: {
                   edges: {
-                    $unshift: [{ node: newSelection }]
+                    $unshift: [{
+                      __typename: "SelectionNodeEdge",
+                      node: newSelection
+                    }]
                   }
                 }
               });
@@ -287,7 +293,10 @@ const SelectWithStateAndData = compose(
               return update(prev, {
                 allWindows: {
                   edges: {
-                    $unshift: [{ node: newWindow }]
+                    $unshift: [{
+                      __typename: "WindowNodeEdge",
+                      node: newWindow
+                    }]
                   }
                 }
               });

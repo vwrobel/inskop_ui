@@ -24,8 +24,6 @@ class AnalysisModifier extends Component {
       changeAnalysis,
       deleteAnalysis,
       children,
-      star,
-      unlock,
       analysisEdited,
       analysisNameInput,
       analysisDescriptionInput,
@@ -34,11 +32,6 @@ class AnalysisModifier extends Component {
       scene,
       analysisCanSubmit
     } = this.props;
-    const childrenWithProps = React.Children.map(children,
-      (child) => React.cloneElement(child, {
-        star,
-        unlock
-      }));
     return (
       <div className={css(styles.container)}>
         <EditDialog
@@ -67,7 +60,7 @@ class AnalysisModifier extends Component {
           closeDeleteDialog={() => dispatch(analysisEditOpenDialogDelete(false))}
           openedDeleteDialog={analysisOpenedDeleteDialog || false}
         />
-        {childrenWithProps}
+        {children}
       </div>
     );
   }
@@ -81,8 +74,6 @@ AnalysisModifier.propTypes = {
   deleteAnalysis: PropTypes.func,
   analysisNameInput: PropTypes.string,
   analysisDescriptionInput: PropTypes.string,
-  star: PropTypes.func,
-  unlock: PropTypes.func,
   analysisEdited: PropTypes.object,
   analysisOpenedModifyDialog: PropTypes.bool,
   analysisOpenedDeleteDialog: PropTypes.bool,
@@ -99,45 +90,6 @@ const mapStateToProps = (state) => ({
 });
 
 const AnalysisModifierWithState = connect(mapStateToProps)(AnalysisModifier);
-
-const UnlockAnalysisMutation = gql `
-mutation UnlockAnalysis($analysisId: String!) {
-  unlockAnalysis(analysisId: $analysisId) {
-    ok
-    analysis{
-      id
-      name
-      locked
-    }
-  }
-}`;
-
-const StarAnalysisMutation = gql `
-mutation StarAnalysis($analysisId: String!) {
-  starAnalysis(analysisId: $analysisId) {
-    ok
-    analysis {
-      id
-      name
-      slug
-      description
-      locked
-      favoriteCount
-      isUserFavorite
-      isUserOwner
-      owner {
-        id
-        name
-        picture
-        slug
-        bio
-        sceneStars
-        codeStars
-        analysisStars
-      }
-    }
-  }
-}`;
 
 const DeleteAnalysisMutation = gql `
 mutation DeleteAnalysis($analysisId: String!) {
@@ -189,18 +141,6 @@ const AnalysisModifierWithStateAndData = compose(
             });
           }
         }
-      })
-    })
-  }),
-  graphql(UnlockAnalysisMutation, {
-    props: ({ mutate }) => ({
-      unlock: (analysisId) => mutate({ variables: { analysisId } })
-    })
-  }),
-  graphql(StarAnalysisMutation, {
-    props: ({ mutate }) => ({
-      star: (analysisId, analysisIsUserOwner, analysisIsUserFavorite) => mutate({
-        variables: { analysisId }
       })
     })
   })

@@ -16,7 +16,7 @@ const Buttons = (props) => {
   } = props;
 
   const onStar = () => {
-    star(analysis.id, analysis.isUserOwner, analysis.isUserFavorite);
+    star(analysis.id);
   };
   const onUnlock = () => {
     unlock(analysis.id);

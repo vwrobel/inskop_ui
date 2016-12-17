@@ -4,8 +4,15 @@ import { StyleSheet, css } from 'aphrodite';
 import Formsy from 'formsy-react';
 import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
 import QuestionIcon from 'mdi-react/CommentQuestionOutlineIcon';
+import LockIcon from 'mdi-react/LockIcon';
 import DropZone from './components/DropZone';
-import { sceneEditDescriptionInput, sceneEditNameInput, sceneEditStatusInput, sceneEditReset, sceneEditCanSubmit } from '../../SceneListActions';
+import {
+  sceneEditDescriptionInput,
+  sceneEditNameInput,
+  sceneEditStatusInput,
+  sceneEditLockInput,
+  sceneEditReset,
+  sceneEditCanSubmit } from '../../SceneListActions';
 
 const styles = StyleSheet.create({
   formInput: {
@@ -18,6 +25,7 @@ class SceneEditForm extends Component {
     const { scene, dispatch } = this.props;
     if (scene) {
       dispatch(sceneEditStatusInput(scene.status.name === 'question'));
+      dispatch(sceneEditLockInput(scene.locked));
       dispatch(sceneEditNameInput(scene.name));
       dispatch(sceneEditDescriptionInput(scene.description));
     }
@@ -32,6 +40,7 @@ class SceneEditForm extends Component {
       sceneNameInput,
       sceneDescriptionInput,
       sceneStatusInput,
+      sceneLockInput,
       droppedFile,
       validDroppedFile,
       sceneCanSubmit,
@@ -81,6 +90,17 @@ class SceneEditForm extends Component {
         <div style={{ marginLeft: 10, display: 'inline-block' }}>
           <QuestionIcon />
         </div>
+        <br/>
+        <FormsyToggle
+          style={{ marginBottom: 20, width: '25%', display: 'inline-block' }}
+          name='Lock'
+          label='Make private'
+          value={sceneLockInput}
+          onChange={(e, value) => { dispatch(sceneEditLockInput(value)); }}
+        />
+        <div style={{ marginLeft: 10, display: 'inline-block' }}>
+          <LockIcon />
+        </div>
         {dropZone}
       </Formsy.Form>
     );
@@ -95,12 +115,14 @@ SceneEditForm.propTypes = {
   sceneNameInput: PropTypes.string,
   sceneDescriptionInput: PropTypes.string,
   sceneStatusInput: PropTypes.bool,
+  sceneLockInput: PropTypes.bool,
   scene: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
   sceneNameInput: state.scene.list.main.sceneNameInput,
   sceneStatusInput: state.scene.list.main.sceneStatusInput,
+  sceneLockInput: state.scene.list.main.sceneLockInput,
   sceneDescriptionInput: state.scene.list.main.sceneDescriptionInput,
   droppedFile: state.scene.list.main.droppedFile,
   validDroppedFile: state.scene.list.main.validDroppedFile,

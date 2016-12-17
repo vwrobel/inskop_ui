@@ -13,8 +13,7 @@ import { videoEditOpenDialogCreate } from '../../AnalysisActions';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 60,
-    display: 'flex',
+    minHeight: 60,
     position: 'relative'
   }
 });
@@ -27,23 +26,27 @@ class VideoBoard extends Component {
         dispatch={dispatch}
         video={video}
       /> :
-      <div style={{ width: '15%' }} />
-    ) : <div style={{ width: '15%' }} />;
+      <div style={{ width: 140 }} />
+    ) : <div style={{ width: 140 }} />;
     return (
       <div className={css(styles.container)}>
-        <Play dispatch={dispatch} playing={playing} />
-        <Seek dispatch={dispatch} currentTime={currentTime} />
-        <GoTo scene={scene} dispatch={dispatch} />
-        <Timer scene={scene} currentTime={currentTime} />
-        <SelectVideo dispatch={dispatch} videoSelected={videoSelected} videos={videos} />
-        <FloatingSmallAddButton
-          addFunction={() => dispatch(videoEditOpenDialogCreate(true))} //dispatch(videoEditOpenDialogCreate(true))
-          addLabel='Add video'
-          bottom
-          disabled={!analysis}
-          highlight={analysis && video.slug === 'orig'}
-        />
-        { videoEditDelete }
+        <div style={{ width: 600, height: 60, display: 'flex', float: 'left' }}>
+          <Play dispatch={dispatch} playing={playing} />
+          <Seek dispatch={dispatch} currentTime={currentTime} />
+          <GoTo scene={scene} dispatch={dispatch} />
+          <Timer scene={scene} currentTime={currentTime} />
+        </div>
+        <div style={{ width: 350, height: 60, display: 'flex', float: 'right' }}>
+          <SelectVideo dispatch={dispatch} videoSelected={videoSelected} videos={videos} scene={scene} analysis={analysis} />
+          <FloatingSmallAddButton
+            addFunction={() => dispatch(videoEditOpenDialogCreate(true))} //dispatch(videoEditOpenDialogCreate(true))
+            addLabel='Add video'
+            bottom
+            disabled={!analysis}
+            highlight={analysis && video.slug === 'orig'}
+          />
+          { videoEditDelete }
+        </div>
       </div>
     );
   }

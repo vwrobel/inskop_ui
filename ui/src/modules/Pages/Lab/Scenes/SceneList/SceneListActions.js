@@ -3,6 +3,7 @@ import { FILE_TRANSFER_API } from '../../../../../middlewares/fileTransferApi';
 export const SCENE_EDIT_NAME_INPUT = 'SCENE_EDIT_NAME_INPUT';
 export const SCENE_EDIT_DESCRIPTION_INPUT = 'SCENE_EDIT_DESCRIPTION_INPUT';
 export const SCENE_EDIT_STATUS_INPUT = 'SCENE_EDIT_STATUS_INPUT';
+export const SCENE_EDIT_LOCK_INPUT = 'SCENE_EDIT_STATUS_INPUT';
 export const SCENE_EDIT_FILEDROP = 'SCENE_EDIT_FILEDROP';
 export const SCENE_EDIT_OPEN_DIALOG_CREATE = 'SCENE_EDIT_OPEN_DIALOG_CREATE';
 export const SCENE_EDIT_OPEN_DIALOG_MODIFY = 'SCENE_EDIT_OPEN_DIALOG_MODIFY';
@@ -51,6 +52,13 @@ export const sceneEditDescriptionInput = (input) => ({
 
 export const sceneEditStatusInput = (input) => ({
   type: SCENE_EDIT_STATUS_INPUT,
+  payload: {
+    input
+  }
+});
+
+export const sceneEditLockInput = (input) => ({
+  type: SCENE_EDIT_LOCK_INPUT,
   payload: {
     input
   }

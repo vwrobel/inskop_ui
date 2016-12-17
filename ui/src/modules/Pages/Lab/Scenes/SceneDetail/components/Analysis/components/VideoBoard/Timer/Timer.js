@@ -4,8 +4,8 @@ import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
   container: {
-    width: '20%',
-    marginLeft: 40,
+    width: 120,
+    marginLeft: 10,
     padding: 10
   }
 });

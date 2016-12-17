@@ -49,7 +49,10 @@ const routes = (store) => (
               <IndexRoute component={SceneDetail} />
               <Route path='analyses/:analysisSlug'>
                 <IndexRoute component={SceneDetail} />
-                <Route path=':toolSlug' component={SceneDetail} />
+                <Route path='videos/:videoSlug' component={SceneDetail}>
+                  <IndexRoute component={SceneDetail} />
+                  <Route path='tools/:toolSlug' component={SceneDetail} />
+                </Route>
               </Route>
             </Route>
           </Route>

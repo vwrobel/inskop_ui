@@ -9,6 +9,7 @@ export const ANALYSIS_EDIT_RESET = 'ANALYSIS_EDIT_RESET';
 export const ANALYSIS_EDIT_CAN_SUBMIT = 'ANALYSIS_EDIT_CAN_SUBMIT';
 export const ANALYSIS_FULL_RESET = 'ANALYSIS_FULL_RESET';
 export const ANALYSIS_EDIT_SET_EDITED = 'ANALYSIS_EDIT_SET_EDITED';
+export const ANALYSIS_SET_LOADED = 'ANALYSIS_SET_LOADED';
 
 export const VIDEO_TIME_CHANGE = 'VIDEO_TIME_CHANGE';
 export const VIDEO_PLAYING = 'VIDEO_PLAYING';
@@ -83,6 +84,13 @@ export const analysisSelect = (selectedItem) => ({
   type: ANALYSIS_SELECT,
   payload: {
     selectedItem
+  }
+});
+
+export const analysisSetLoaded = (loaded) => ({
+  type: ANALYSIS_SET_LOADED,
+  payload: {
+    loaded
   }
 });
 

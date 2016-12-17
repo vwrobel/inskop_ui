@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
 });
 
 
-const renderItem = (item, dispatch, toolBarSelection, scene, analysis) => {
+const renderItem = (item, dispatch, toolBarSelection, scene, analysis, video) => {
   const { path, icon, name, authSceneOwner, authAnalysisOwner, authAnalysisExists } = item;
   const onClickItem = () => {
-    toolBarActionSelect(path, dispatch, scene, analysis);
+    toolBarActionSelect(path, dispatch, scene, analysis, video);
   };
   const boxedIcon = (
     <div key={`icon_${name}`} className={css(styles.icon)}>
@@ -64,12 +64,12 @@ const renderItem = (item, dispatch, toolBarSelection, scene, analysis) => {
   );
 };
 
-const renderItems = (items, dispatch, toolBarSelection, scene, analysis) =>
-  (items.map((item) => renderItem(item, dispatch, toolBarSelection, scene, analysis)));
+const renderItems = (items, dispatch, toolBarSelection, scene, analysis, video) =>
+  (items.map((item) => renderItem(item, dispatch, toolBarSelection, scene, analysis, video)));
 
 const ToolBarItems = (props) => {
-  const { items, dispatch, toolBarSelection, scene, analysis } = props;
-  const thisItems = renderItems(items, dispatch, toolBarSelection, scene, analysis);
+  const { items, dispatch, toolBarSelection, scene, analysis, video } = props;
+  const thisItems = renderItems(items, dispatch, toolBarSelection, scene, analysis, video);
   return (
     <List>
       <ReactTooltip place='left' type='dark' effect='solid' class={css(styles.tooltip)} delayHide={0} delayShow={500} />
@@ -83,7 +83,8 @@ ToolBarItems.propTypes = {
   items: PropTypes.array,
   toolBarSelection: PropTypes.string,
   scene: PropTypes.object,
-  analysis: PropTypes.object
+  analysis: PropTypes.object,
+  video: PropTypes.object
 };
 
 export default ToolBarItems;

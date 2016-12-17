@@ -9,7 +9,7 @@ import { inskopDark } from '../../../../../../../../../../styles/MuiTheme';
 
 const styles = StyleSheet.create({
   container: {
-    width: '5%'
+    width: 50
   }
 });
 

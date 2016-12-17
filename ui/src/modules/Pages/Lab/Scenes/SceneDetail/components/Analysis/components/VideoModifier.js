@@ -20,12 +20,12 @@ class VideoModifier extends Component {
 
   render() {
     const {
+      analysis,
+      connection,
       dispatch,
       changeVideo,
       deleteVideo,
       children,
-      star,
-      unlock,
       videoEdited,
       videoNameInput,
       videoProcessInput,
@@ -33,11 +33,6 @@ class VideoModifier extends Component {
       videoOpenedDeleteDialog,
       videoCanSubmit
     } = this.props;
-    const childrenWithProps = React.Children.map(children,
-      (child) => React.cloneElement(child, {
-        star,
-        unlock
-      }));
     return (
       <div className={css(styles.container)}>
         <EditDialog
@@ -46,9 +41,16 @@ class VideoModifier extends Component {
           editObject={() => {
             changeVideo(
               videoEdited.id,
-              videoNameInput,
-              videoDescriptionInput
-            );
+              videoProcessInput
+            ).then(
+            (res) => {
+              const message = {
+                action: "start_process_vid",
+                job_name:`${analysis.slug}-${res.data.changeVideo.video.slug}`,
+                vid_id: res.data.changeVideo.video.id
+              };
+              connection.send(JSON.stringify(message));
+            });
           }}
           closeEditDialog={() => dispatch(videoEditOpenDialogModify(false))}
           openedEditDialog={videoOpenedModifyDialog || false}
@@ -65,7 +67,7 @@ class VideoModifier extends Component {
           closeDeleteDialog={() => dispatch(videoEditOpenDialogDelete(false))}
           openedDeleteDialog={videoOpenedDeleteDialog || false}
         />
-        {childrenWithProps}
+        {children}
       </div>
     );
   }
@@ -73,18 +75,18 @@ class VideoModifier extends Component {
 
 VideoModifier.propTypes = {
   scene: PropTypes.object,
+  analysis: PropTypes.object,
   children: PropTypes.any,
   dispatch: PropTypes.func,
   changeVideo: PropTypes.func,
   deleteVideo: PropTypes.func,
   videoNameInput: PropTypes.string,
   videoProcessInput: PropTypes.string,
-  star: PropTypes.func,
-  unlock: PropTypes.func,
   videoEdited: PropTypes.object,
   videoOpenedModifyDialog: PropTypes.bool,
   videoOpenedDeleteDialog: PropTypes.bool,
-  videoCanSubmit: PropTypes.bool
+  videoCanSubmit: PropTypes.bool,
+  connection: PropTypes.any
 };
 
 const mapStateToProps = (state) => ({
@@ -111,7 +113,7 @@ mutation DeleteVideo($videoId: ID!) {
 }`;
 
 const ChangeVideoMutation = gql `
-mutation ChangeVideo($videoId: ID!, $processYaml: String) {
+mutation ChangeVideo($videoId: ID!, $processYaml: String!) {
   changeVideo(videoId: $videoId, processYaml: $processYaml) {
     ok
     video {

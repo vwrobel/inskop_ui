@@ -3,7 +3,6 @@ import { StyleSheet, css } from 'aphrodite';
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import gql from 'graphql-tag';
-import Fragment from 'graphql-fragments';
 import CodeAdder from './CodeAdder';
 import CodeModifier from './CodeModifier';
 import CodeListWrapper from './CodeListWrapper';
@@ -42,7 +41,7 @@ CodeCollections.propTypes = {
 };
 
 CodeCollections.fragments = {
-  code: new Fragment(gql`
+  code: gql`
     fragment CodeCollectionCode on CodeNode {
       id
       name
@@ -67,7 +66,7 @@ CodeCollections.fragments = {
         analysisStars
       }
     }
-  `)
+  `
 };
 
 const CodeCollectionsQuery = gql `
@@ -80,15 +79,12 @@ const CodeCollectionsQuery = gql `
       }
     }
   }
+  ${CodeCollections.fragments.code}
 `;
 
 
 const CodeCollectionsWithData = compose(
-  graphql(CodeCollectionsQuery, {
-    options: ({ params }) => ({
-      fragments: CodeCollections.fragments.code.fragments()
-    })
-  })
+  graphql(CodeCollectionsQuery)
 )(CodeCollections);
 
 const CodeCollectionsWithStateAndData = connect()(CodeCollectionsWithData);

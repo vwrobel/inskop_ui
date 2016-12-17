@@ -31,11 +31,17 @@ class SceneAdder extends Component {
       sceneNameInput,
       sceneDescriptionInput,
       sceneStatusInput,
+      sceneLockInput,
       droppedFile,
       addScene
     } = this.props;
     dispatch(sceneAddUpload(authenticated, token, sceneNameInput, droppedFile)).then(
-      () => addScene(sceneNameInput, sceneDescriptionInput, sceneStatusInput ? 'question' : 'normal')
+      () => addScene(
+        sceneNameInput,
+        sceneDescriptionInput,
+        sceneStatusInput ? 'question' : 'normal',
+        sceneLockInput
+      )
     );
   }
 
@@ -103,6 +109,7 @@ SceneAdder.propTypes = {
   sceneNameInput: PropTypes.string,
   sceneDescriptionInput: PropTypes.string,
   sceneStatusInput: PropTypes.bool,
+  sceneLockInput: PropTypes.bool,
   droppedFile: PropTypes.object,
   validDroppedFile: PropTypes.bool,
   children: PropTypes.any,
@@ -118,6 +125,7 @@ const mapStateToProps = (state) => ({
   sceneNameInput: state.scene.list.main.sceneNameInput,
   sceneDescriptionInput: state.scene.list.main.sceneDescriptionInput,
   sceneStatusInput: state.scene.list.main.sceneStatusInput,
+  sceneLockInput: state.scene.list.main.sceneLockInput,
   droppedFile: state.scene.list.main.droppedFile,
   sceneCanSubmit: state.scene.list.main.canSubmit,
   validDroppedFile: state.scene.list.main.validDroppedFile,
@@ -128,8 +136,8 @@ const mapStateToProps = (state) => ({
 const SceneAdderWithState = connect(mapStateToProps)(SceneAdder);
 
 const AddSceneMutation = gql`
-mutation AddScene($name: String!, $description: String!, $status: String!){
-  addScene(name: $name, description: $description, status: $status) {
+mutation AddScene($name: String!, $description: String!, $status: String!, $locked: Boolean!){
+  addScene(name: $name, description: $description, status: $status, locked: $locked) {
     ok
     scene {
       id
@@ -163,8 +171,8 @@ mutation AddScene($name: String!, $description: String!, $status: String!){
 const SceneAdderWithStateAndData = compose(
   graphql(AddSceneMutation, {
     props: ({ mutate }) => ({
-      addScene: (name, description, status) => mutate({
-        variables: { name, description, status },
+      addScene: (name, description, status, locked) => mutate({
+        variables: { name, description, status, locked },
         updateQueries: {
           SceneCollections: (prev, { mutationResult }) => {
             const newScene = mutationResult.data.addScene.scene;

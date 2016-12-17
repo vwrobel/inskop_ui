@@ -1,4 +1,4 @@
-import ApolloClient, { addQueryMerging } from 'apollo-client';
+import ApolloClient from 'apollo-client';
 import cookie from 'react-cookie';
 import ResponseMiddlewareNetworkInterface from './response-middleware-network-interface';
 import log from '../log';
@@ -18,7 +18,7 @@ responseMiddlewareNetworkInterface.use({
   }
 });
 
-const networkInterface = addQueryMerging(responseMiddlewareNetworkInterface);
+const networkInterface = responseMiddlewareNetworkInterface;
 
 
 networkInterface.use([{
@@ -36,6 +36,7 @@ networkInterface.use([{
 
 const ApolloClientSingleton = new ApolloClient({
   networkInterface,
+  connectToDevTools: typeof window !== 'undefined',
   shouldBatch: true,
   dataIdFromObject: (o) => o.id
 });

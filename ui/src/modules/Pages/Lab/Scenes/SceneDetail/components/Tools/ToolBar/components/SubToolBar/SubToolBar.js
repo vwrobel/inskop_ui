@@ -42,6 +42,7 @@ const SubToolBar = (props) => {
   let subToolBarLargeStyle = {};
   switch (toolBarSelection) {
     case 'view-analysis':
+      subToolBarLargeStyle = { sidebar: { width : 450 } };
       subToolBarContent = (
         <ViewAnalysis
           analysis={analysis}
@@ -49,6 +50,11 @@ const SubToolBar = (props) => {
           video={video}
         />);
       break;
+    case 'comment':
+      subToolBarLargeStyle = { sidebar: { width : 550 } };
+      subToolBarContent = analysis ? (
+        <Comment scene={scene} analysis={analysis} />) : <div />;
+    break;
     case 'select':
       subToolBarContent = analysis ? (
         <Select
@@ -59,11 +65,6 @@ const SubToolBar = (props) => {
           windows={windows}
         />) : <div />;
       break;
-    case 'comment':
-      subToolBarLargeStyle = { sidebar: { width : 550 } };
-      subToolBarContent = analysis ? (
-        <Comment scene={scene} analysis={analysis} />) : <div />;
-    break;
     case 'table':
       subToolBarContent = analysis ? (
         <Table scene={scene} analysis={analysis} />) : <div />;

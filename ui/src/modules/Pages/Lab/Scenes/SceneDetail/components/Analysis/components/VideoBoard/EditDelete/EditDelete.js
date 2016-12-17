@@ -6,7 +6,7 @@ import { videoEditOpenDialogDelete, videoEditOpenDialogModify, videoEditSetEdite
 
 const styles = StyleSheet.create({
   container: {
-    width: '15%'
+    width: 140
   }
 });
 

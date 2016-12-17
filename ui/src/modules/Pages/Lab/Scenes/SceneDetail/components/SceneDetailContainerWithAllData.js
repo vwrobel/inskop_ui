@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { graphql, compose } from 'react-apollo';
+import _ from 'underscore';
 import gql from 'graphql-tag';
 import ToolBar from './Tools/ToolBar/ToolBar';
 import AnalysisContainer from './Analysis/AnalysisContainer';
+import Loading from '../../../../../Common/All/Loading/Loading'
 import { videoSelect } from './Analysis/AnalysisActions';
 
 const styles = StyleSheet.create({
@@ -13,9 +15,6 @@ const styles = StyleSheet.create({
 });
 
 class SceneDetailContainer extends Component {
-  componentWillMount() {
-    this.props.dispatch(videoSelect('orig'));
-  }
   render() {
     const {
       data,
@@ -24,11 +23,14 @@ class SceneDetailContainer extends Component {
       analysis,
       analyses,
       availableFilters,
-      availableTrackers
+      availableTrackers,
+      videoSelected
     } = this.props;
     const shouldNotAddData = analysis ? data.loading : true;
     const videos = shouldNotAddData ?
       origVideo : origVideo.concat(data.allVideosOfAnalysis.edges.map((video) => video.node));
+    const video = shouldNotAddData ?
+      origVideo[0] : _.findWhere(videos, { slug: videoSelected });
     const tags = shouldNotAddData ?
       [] : data.allTags.edges.map((tag) => tag.node);
     const selections = shouldNotAddData ?
@@ -43,6 +45,7 @@ class SceneDetailContainer extends Component {
         availableTrackers={availableTrackers}
         tags={tags}
         videos={videos}
+        video={video}
         selections={selections}
         windows={windows}
       >
@@ -50,6 +53,7 @@ class SceneDetailContainer extends Component {
           <AnalysisContainer
             scene={scene}
             videos={videos}
+            video={video}
             analysis={analysis}
             analyses={analyses}
             windows={windows}
@@ -68,7 +72,8 @@ SceneDetailContainer.propTypes = {
   analysis: PropTypes.object,
   origVideo: PropTypes.array,
   availableFilters: PropTypes.array,
-  availableTrackers: PropTypes.array
+  availableTrackers: PropTypes.array,
+  videoSelected: PropTypes.string
 };
 
 
@@ -152,7 +157,9 @@ query SelectionQuery($analysisId: ID!){
 const SceneDetailContainerWithData = compose(
   graphql(SelectionQuery, {
     skip: (ownProps) => ownProps.analysis === null,
-    options: ({ analysis }) => ({ variables: { analysisId: analysis.id } })
+    options: ({ analysis }) => ({
+      variables: { analysisId: analysis.id }
+    })
   })
 )(SceneDetailContainer);
 

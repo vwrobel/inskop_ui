@@ -48,7 +48,7 @@ class Home extends Component {
               secondary
             />
           </Link>
-          <Link to='/lab/scenes/'>
+          <Link to='/lab/scenes/aouta/analyses/aouta_analysis/videos/orig/tools/view-analysis'>
             <RaisedButton
               label='Start with a featured scene'
               secondary

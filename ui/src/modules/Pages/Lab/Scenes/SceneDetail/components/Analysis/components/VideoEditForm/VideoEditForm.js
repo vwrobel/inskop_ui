@@ -34,7 +34,7 @@ class VideoEditForm extends Component {
     if (video) {
       dispatch(videoEditNameInput(video.name));
       dispatch(videoEditDescriptionInput(video.description));
-      dispatch(videoEditProcessInput(video.process));
+      dispatch(videoEditProcessInput(video.process.process));
     } else {
       dispatch(videoEditProcessInput(processTemplate));
     }
@@ -68,7 +68,7 @@ class VideoEditForm extends Component {
       >
         <FormsyText
           name='name'
-          validations='isAlphanumeric'
+          validations='isExisty'
           validationError='This is not a valid name'
           required
           floatingLabelText='Name'

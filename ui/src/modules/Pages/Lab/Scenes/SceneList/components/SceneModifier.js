@@ -29,6 +29,7 @@ class SceneModifier extends Component {
       sceneNameInput,
       sceneDescriptionInput,
       sceneStatusInput,
+      sceneLockInput,
       openedModifyDialog,
       openedDeleteDialog,
       sceneCanSubmit
@@ -48,7 +49,8 @@ class SceneModifier extends Component {
               editedScene.id,
               sceneNameInput,
               sceneDescriptionInput,
-              sceneStatusInput ? 'question' : 'normal'
+              sceneStatusInput ? 'question' : 'normal',
+              sceneLockInput
             );
           }}
           canSubmit={sceneCanSubmit}
@@ -82,6 +84,7 @@ SceneModifier.propTypes = {
   sceneNameInput: PropTypes.string,
   sceneDescriptionInput: PropTypes.string,
   sceneStatusInput: PropTypes.bool,
+  sceneLockInput: PropTypes.bool,
   star: PropTypes.func,
   unlock: PropTypes.func,
   editedScene: PropTypes.object,
@@ -94,6 +97,7 @@ const mapStateToProps = (state) => ({
   sceneNameInput: state.scene.list.main.sceneNameInput,
   sceneDescriptionInput: state.scene.list.main.sceneDescriptionInput,
   sceneStatusInput: state.scene.list.main.sceneStatusInput,
+  sceneLockInput: state.scene.list.main.sceneLockInput,
   droppedFile: state.scene.list.main.droppedFile,
   editedScene: state.scene.list.main.editedScene,
   openedModifyDialog: state.scene.list.main.openedModifyDialog,
@@ -159,8 +163,8 @@ mutation DeleteScene($sceneId: String!) {
 }`;
 
 const ChangeSceneMutation = gql `
-mutation ChangeScene($sceneId: String!, $name: String, $description: String, $status: String) {
-  changeScene(sceneId: $sceneId, name: $name, description: $description, status: $status) {
+mutation ChangeScene($sceneId: String!, $name: String, $description: String, $status: String, $locked: Boolean!) {
+  changeScene(sceneId: $sceneId, name: $name, description: $description, status: $status, locked: $locked) {
     ok
     scene {
       id
@@ -176,8 +180,8 @@ mutation ChangeScene($sceneId: String!, $name: String, $description: String, $st
 const SceneModifierWithStateAndData = compose(
   graphql(ChangeSceneMutation, {
     props: ({ mutate }) => ({
-      changeScene: (sceneId, name, description, status) =>
-        mutate({ variables: { sceneId, name, description, status } })
+      changeScene: (sceneId, name, description, status, locked) =>
+        mutate({ variables: { sceneId, name, description, status, locked } })
     })
   }),
   graphql(DeleteSceneMutation, {

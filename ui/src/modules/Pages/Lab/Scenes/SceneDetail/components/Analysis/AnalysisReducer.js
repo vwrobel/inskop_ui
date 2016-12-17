@@ -12,6 +12,7 @@ import {
   ANALYSIS_FULL_RESET,
   ANALYSIS_EDIT_SET_EDITED,
   ANALYSIS_EDIT_CAN_SUBMIT,
+  ANALYSIS_SET_LOADED,
   VIDEO_TIME_CHANGE,
   VIDEO_PLAYING,
   VIDEO_SLIDING,
@@ -43,11 +44,12 @@ const initialState = {
   analysisSelected: null,
   analysisEdited: null,
   analysisCanSubmit: false,
+  analysisLoaded: false,
   videoCurrentTime: 0,
   videoPlaying: false,
   videoSliding: false,
   videoSlided: false,
-  videoSelected: null,
+  videoSelected: 'orig',
   videoInit: true,
   videoNameInput: '',
   videoCategoryInput: '',
@@ -101,6 +103,9 @@ export default createReducer(initialState, {
   }),
   [ANALYSIS_EDIT_SET_EDITED]: (state, payload) => Object.assign({}, state, {
     analysisEdited: payload.analysis
+  }),
+  [ANALYSIS_SET_LOADED]: (state, payload) => Object.assign({}, state, {
+    analysisLoaded: payload.loaded
   }),
   [VIDEO_TIME_CHANGE]: (state, payload) => Object.assign({}, state, {
     videoCurrentTime: payload.currentTime

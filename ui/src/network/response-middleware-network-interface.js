@@ -1,8 +1,8 @@
 import { createNetworkInterface } from 'apollo-client';
 
 class ResponseMiddlewareNetworkInterface {
-  constructor(endpoint = '/api/graphql/', options = {}) {
-    this.defaultNetworkInterface = createNetworkInterface(endpoint, options);
+  constructor(options={ uri: '/api/graphql/'}) {
+    this.defaultNetworkInterface = createNetworkInterface(options);
     this.responseMiddlewares = [];
   }
 

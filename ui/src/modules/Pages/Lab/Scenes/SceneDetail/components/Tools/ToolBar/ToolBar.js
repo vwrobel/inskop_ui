@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import Sidebar from 'react-sidebar';
 import _ from 'underscore';
 import ToolBarContent from './components/ToolBarContent';
-import { inskopLighter } from '../../../../../../../../styles/MuiTheme';
+import {inskopLighter} from '../../../../../../../../styles/MuiTheme';
 import SubToolBar from './components/SubToolBar/SubToolBar';
 
 const toolBarStyles = {
@@ -39,7 +39,7 @@ const ToolBar = (props) => {
     tags,
     analysis,
     videos,
-    videoSelected,
+    video,
     selections,
     windows,
     availableFilters,
@@ -48,10 +48,10 @@ const ToolBar = (props) => {
   const toolBarContent = (<ToolBarContent
     scene={scene}
     analysis={analysis}
+    video={video}
     toolBarSelection={toolBarSelection}
     dispatch={dispatch}
   />);
-  const video = _.findWhere(videos, { slug: videoSelected });
   return (
     <Sidebar
       sidebar={toolBarContent}
@@ -87,7 +87,7 @@ ToolBar.propTypes = {
   tags: PropTypes.array,
   analysis: PropTypes.object,
   videos: PropTypes.array,
-  videoSelected: PropTypes.string,
+  video: PropTypes.object,
   selections: PropTypes.array,
   windows: PropTypes.array,
   availableFilters: PropTypes.array,
@@ -96,8 +96,7 @@ ToolBar.propTypes = {
 
 const mapStateToProps = (state) => ({
   toolBarDocked: state.scene.detail.tools.toolBarDocked,
-  toolBarSelection: state.scene.detail.tools.toolBarSelection,
-  videoSelected: state.scene.detail.analysis.videoSelected
+  toolBarSelection: state.scene.detail.tools.toolBarSelection
 });
 
 

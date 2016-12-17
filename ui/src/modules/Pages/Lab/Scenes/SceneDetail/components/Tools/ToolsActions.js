@@ -182,14 +182,14 @@ export const processWaiting = (isProcessing) => ({
   }
 });
 
-export const toolBarActionSelect = (value, dispatch, scene, analysis) => {
+export const toolBarActionSelect = (value, dispatch, scene, analysis, video) => {
   const currentSceneUrl = analysis ?
-    `/lab/scenes/${scene.slug}/analyses/${analysis.slug}` : `/lab/scenes/${scene.slug}`;
+    `/lab/scenes/${scene.slug}/analyses/${analysis.slug}/videos/${video.slug}/tools` : `/lab/scenes/${scene.slug}`;
   switch (value) {
     case 'scenes':
       dispatch(push('/lab/scenes'));
       break;
-    case 'code':
+    case 'codes':
       dispatch(push('/lab/codes'));
       break;
     case 'view-analysis':

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { sideBarDock } from '../../../../Navigation/components/SideBar/SideBarActions';
-import { analysisFullReset, analysisSelect } from './components/Analysis/AnalysisActions';
+import { analysisFullReset, analysisSelect, videoSelect } from './components/Analysis/AnalysisActions';
 import { toolBarDock, toolBarSelect, toolsResetState } from './components/Tools/ToolsActions';
 import SceneDetailContainer from './components/SceneDetailContainer';
 
@@ -18,12 +18,14 @@ class SceneDetail extends Component {
     const { params } = this.props;
     this.props.toolBarSelect(params.toolSlug || null);
     this.props.analysisSelect(params.analysisSlug || null);
+    this.props.videoSelect(params.videoSlug || 'orig');
   }
 
   componentDidUpdate() {
     const { params } = this.props;
     this.props.toolBarSelect(params.toolSlug || null);
     this.props.analysisSelect(params.analysisSlug || null);
+    this.props.videoSelect(params.videoSlug || 'orig');
   }
 
   componentWillUnmount() {
@@ -34,12 +36,10 @@ class SceneDetail extends Component {
   }
 
   render() {
-    const { params } = this.props;
     return (
       <SceneDetailContainer
-        sceneSlug={params.sceneSlug}
-        analysisSlug={params.analysisSlug}
-        toolSlug={params.toolSlug}
+        sceneSlug={this.props.params.sceneSlug}
+        analysisLoaded={this.props.analysisLoaded}
       />
     );
   }
@@ -52,10 +52,13 @@ SceneDetail.propTypes = {
   analysisFullReset: PropTypes.func,
   params: PropTypes.object,
   toolBarSelect: PropTypes.func,
-  analysisSelect: PropTypes.func
+  analysisSelect: PropTypes.func,
+  videoSelect: PropTypes.func,
+  analysisLoaded: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
+    analysisLoaded: state.scene.detail.analysis.analysisLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -64,7 +67,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   toolsResetState,
   analysisFullReset,
   toolBarSelect,
-  analysisSelect
+  analysisSelect,
+  videoSelect
 }, dispatch);
 
 const SceneDetailWithState = connect(mapStateToProps, mapDispatchToProps)(SceneDetail);
