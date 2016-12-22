@@ -26,7 +26,7 @@ const CodeInvalidIcon = (props) => {
       delayShow={500}
     >
       <p>This code has to be validated by inskop before being available.</p>
-      <p>You can write to contact@scopeth.is for more info.</p>
+      <p>You can write to contact@inskop.io for more info.</p>
     </ReactTooltip> : null;
   return (
     <div

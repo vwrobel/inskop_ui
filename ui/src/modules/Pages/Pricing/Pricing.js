@@ -57,13 +57,13 @@ class Pricing extends Component {
     };
 
     const plans = [
-      {icon: free_icon, name: 'Trial', description: 'Up to 10 video uploads. Up to 20 Mo each.'},
+      {icon: free_icon, name: 'Free', description: 'Up to 10 video uploads. Up to 20 Mo each.'},
       {
         icon: more_icon,
         name: 'More',
         description:
           <span>
-            <a href='mailto:contact@scopeth.is'>contact@scopeth.is</a>
+            <a href='mailto:contact@inskop.io'>contact@inskop.io</a>
           </span>
       }
     ];

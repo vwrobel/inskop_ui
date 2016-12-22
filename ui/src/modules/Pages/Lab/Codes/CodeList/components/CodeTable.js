@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Table, Column, Cell } from 'fixed-data-table';
+import { Table, Column, Cell } from 'fixed-data-table-2';
 import Dimensions from 'react-dimensions';
 import CodeCategoryIcon from '../../../../../Common/Code/CodeCategoryIcon';
 import CodeInvalidIcon from '../../../../../Common/Code/CodeInvalidIcon';

@@ -1,5 +1,3 @@
-  const SERVER_ADDRESS = process.env.SERVER_ADDRESS;
-
   const fileTransferApi = (payload) => {
     const { authenticated, token, endpoint, body, contentType, method } = payload;
 
@@ -20,7 +18,7 @@
       }
     }
 
-    return fetch(`${SERVER_ADDRESS}/api/rest/v1/${endpoint}`, config)
+    return fetch(`/api/rest/v1/${endpoint}`, config)
       .then((response) =>
         response.text().then((text) => ({ text, response }))
       ).then(({ text, response }) => {

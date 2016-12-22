@@ -130,7 +130,6 @@ mutation StarScene($sceneId: String!) {
       createdAt
       locked
       thumbnail
-      duration
       favoriteCount
       isUserFavorite
       isUserOwner

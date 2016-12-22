@@ -13,7 +13,7 @@ RUN cd /var/www/inskop/ && npm install
 
 WORKDIR /var/www/inskop
 COPY ./ /var/www/inskop
-ENV NODE_ENV production
+
 EXPOSE 8000
 CMD ["npm", "run", "buildandstart"]
 

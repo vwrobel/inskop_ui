@@ -17,7 +17,7 @@ class Contact extends Component {
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.centered)}>
-          <a href='mailto:contact@scopeth.is'> contact@scopeth.is </a>
+          <a href='mailto:contact@inskop.io'> contact@inskop.io </a>
         </div>
       </div>
     );
